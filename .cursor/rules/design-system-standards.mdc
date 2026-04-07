@@ -1,7 +1,7 @@
 ---
 description: Design system standards — CSS Modules, tokens, generic components, Storybook, i18n, no hardcoded values, no inline styles
 globs: apps/web/**/*.{ts,tsx,css,module.css}
-alwaysApply: false
+alwaysApply: true
 ---
 
 # Design System Standards

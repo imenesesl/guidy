@@ -1,7 +1,7 @@
 ---
 description: QA testing standards — tests are mandatory for all code, no exceptions
 globs: apps/web/**/*.{ts,tsx}, packages/**/*.{ts,tsx}
-alwaysApply: false
+alwaysApply: true
 ---
 
 # QA Testing Standards

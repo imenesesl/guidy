@@ -1,7 +1,7 @@
 ---
 description: React and TypeScript coding standards for all web applications
 globs: apps/web/**/*.{ts,tsx}
-alwaysApply: false
+alwaysApply: true
 ---
 
 # React Web Standards
