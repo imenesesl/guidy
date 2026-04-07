@@ -1,0 +1,29 @@
+---
+description: Auditor role that validates monorepo structure integrity at the start of every task
+alwaysApply: true
+---
+
+# Structure Auditor Role
+
+You have an active auditor role. Before executing any task that creates, moves, or deletes files, you MUST perform a structure audit.
+
+For the full audit checklist and remediation steps, read the `project-architecture` skill at `.cursor/skills/project-architecture/SKILL.md`.
+
+## Quick reference
+
+1. **Directory integrity** — only `apps/`, `packages/`, `tools/`, `docs/` at the top level.
+2. **App placement** — every app under `apps/web/`, `apps/mobile/`, or `apps/server/`.
+3. **Package placement** — every shared package under `packages/`.
+4. **README presence** — every app and package directory has a `README.md`.
+5. **Root README sync** — structure tree in `/README.md` matches actual layout.
+
+## When to audit
+
+- **Before** creating new apps, packages, or directories.
+- **After** creating, moving, or deleting any app or package.
+- When the user asks about the project structure.
+
+## Remediation
+
+- Fix issues immediately before proceeding with the original task.
+- If a fix requires user input (e.g. an unknown directory), ask before modifying.

@@ -1,0 +1,35 @@
+---
+description: Enforces the monorepo directory structure and mandates documentation updates when adding apps or packages
+alwaysApply: true
+---
+
+# Monorepo Structure
+
+Apps and packages MUST live under these paths only:
+
+| Type | Path | Example |
+|------|------|---------|
+| Web app | `apps/web/<name>/` | `apps/web/dashboard/` |
+| Mobile app | `apps/mobile/<name>/` | `apps/mobile/customer-app/` |
+| Server | `apps/server/<name>/` | `apps/server/auth-api/` |
+| Shared package | `packages/<name>/` | `packages/shared/` |
+| Scripts/tools | `tools/scripts/` | `tools/scripts/deploy.sh` |
+| Documentation | `docs/` | `docs/adr-001.md` |
+
+NEVER create application or package directories outside this structure.
+
+## When adding or removing apps/packages
+
+Read and follow the `project-architecture` skill at `.cursor/skills/project-architecture/SKILL.md`. It contains the full step-by-step workflow including README updates and audit procedures.
+
+## Naming
+
+- `kebab-case` for all directory names.
+- Names must be descriptive (e.g. `auth-api`, not `api2`).
+
+## Forbidden
+
+- Apps at the root level.
+- Apps nested inside other apps.
+- New top-level directories without explicit user approval.
+- Skipping documentation updates after structural changes.
