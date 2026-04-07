@@ -12,7 +12,7 @@
 }
 
 .base:disabled {
-  opacity: 0.5;
+  opacity: var(--ds-opacity-disabled);
   cursor: not-allowed;
 }
 
@@ -31,7 +31,9 @@
   composes: base;
   background-color: transparent;
   color: var(--ds-color-text-primary);
-  border: 1px solid var(--ds-color-border-default);
+  border-width: var(--ds-border-width-thin);
+  border-style: solid;
+  border-color: var(--ds-color-border-default);
 }
 
 .secondary:hover:not(:disabled) {
@@ -72,5 +74,5 @@
 }
 
 .fullWidth {
-  width: 100%;
+  width: var(--ds-size-full);
 }

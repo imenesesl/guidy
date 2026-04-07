@@ -3,12 +3,12 @@
 }
 
 .spinner {
-  animation: dsSpin 0.8s linear infinite;
+  animation: dsSpin var(--ds-duration-spin) linear infinite;
 }
 
-.sm { width: 1rem; height: 1rem; }
-.md { width: 1.5rem; height: 1.5rem; }
-.lg { width: 2.5rem; height: 2.5rem; }
+.sm { width: var(--ds-size-spinner-sm); height: var(--ds-size-spinner-sm); }
+.md { width: var(--ds-size-spinner-md); height: var(--ds-size-spinner-md); }
+.lg { width: var(--ds-size-spinner-lg); height: var(--ds-size-spinner-lg); }
 
 .track {
   stroke: var(--ds-color-bg-highlight);

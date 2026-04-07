@@ -1,0 +1,80 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    name: Lint → Stylelint → Typecheck → Test → Build → Storybook
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: '.nvmrc'
+
+      - name: Enable corepack
+        run: corepack enable
+
+      - name: Get pnpm store directory
+        id: pnpm-cache
+        run: echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+
+      - name: Cache pnpm store
+        uses: actions/cache@v4
+        with:
+          path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+          key: pnpm-store-${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: pnpm-store-${{ runner.os }}-
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: ESLint (includes max-lines 150)
+        run: pnpm -r --if-present run lint
+
+      - name: Stylelint (no hardcoded colors, spacing, sizing in CSS)
+        run: pnpm lint:css
+
+      - name: Typecheck
+        run: pnpm typecheck
+
+      - name: Test
+        run: pnpm test
+
+      - name: File size check (150 lines max)
+        run: |
+          FAIL=0
+          while IFS= read -r f; do
+            lines=$(wc -l < "$f" | tr -d ' ')
+            if [ "$lines" -gt 150 ]; then
+              echo "::error file=$f::File exceeds 150 lines ($lines lines)"
+              FAIL=1
+            fi
+          done < <(find packages/ds/src apps/web/core/src -type f \( -name '*.ts' -o -name '*.tsx' -o -name '*.module.css' \) ! -path '*/node_modules/*')
+          exit $FAIL
+
+      - name: No inline styles check
+        run: |
+          if grep -rn 'style={{' packages/ds/src apps/web/core/src --include='*.tsx'; then
+            echo "::error::Inline styles found. Use className with CSS Modules instead."
+            exit 1
+          fi
+
+      - name: Build core app
+        run: pnpm build:core
+
+      - name: Build Storybook (DS)
+        run: pnpm storybook:build:ds
+
+      - name: Build Storybook (Core)
+        run: pnpm storybook:build:core

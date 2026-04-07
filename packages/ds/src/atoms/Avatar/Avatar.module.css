@@ -14,7 +14,7 @@
   font-weight: var(--ds-font-weight-bold);
 }
 
-.sm { width: 2rem; height: 2rem; }
-.md { width: 2.5rem; height: 2.5rem; }
-.lg { width: 3.5rem; height: 3.5rem; }
-.xl { width: 5rem; height: 5rem; }
+.sm { width: var(--ds-size-avatar-sm); height: var(--ds-size-avatar-sm); }
+.md { width: var(--ds-size-avatar-md); height: var(--ds-size-avatar-md); }
+.lg { width: var(--ds-size-avatar-lg); height: var(--ds-size-avatar-lg); }
+.xl { width: var(--ds-size-avatar-xl); height: var(--ds-size-avatar-xl); }

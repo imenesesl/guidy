@@ -51,9 +51,9 @@ feature/
 - Organisms can consume hooks and context.
 - Pages are the only layer that wires routes, data fetching, and orchestration.
 
-## File Size Limit — 150 Lines Max
+## File Size Limit — 150 Lines Max (Enforced by ESLint)
 
-**No file may exceed 150 lines of code.** If a file approaches or exceeds this limit, it is a sign that it violates single-responsibility, lacks extraction, or does not follow the established patterns. Break it down:
+**No file may exceed 150 lines of code.** Enforced by ESLint `max-lines` rule. If a file approaches or exceeds this limit, it is a sign that it violates single-responsibility, lacks extraction, or does not follow the established patterns. Break it down:
 
 - Extract sub-components, hooks, or utilities into their own files.
 - Split large type files into focused modules.
@@ -125,9 +125,11 @@ File names must be consistent across the entire app. Follow this exact pattern:
 
 This convention is mandatory. Every file across every feature, package, and app must follow it.
 
-## Styling — CSS Modules Only
+## Styling — CSS Modules Only (Enforced by Stylelint)
 
 **NEVER use inline styles** (`style={{ }}`) in any component. All styles go through `className`.
+
+**Stylelint** (`pnpm lint:css`) enforces that ALL values in `.module.css` files use `var(--ds-*)` tokens. No hardcoded colors, spacing, sizing, or any numeric values.
 
 - Every component that needs styles gets its own `<ComponentName>.module.css` file, colocated.
 - Import as: `import styles from './ComponentName.module.css';`

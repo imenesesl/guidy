@@ -5,7 +5,7 @@
 }
 
 .fullWidth {
-  width: 100%;
+  width: var(--ds-size-full);
 }
 
 .icon {
@@ -16,7 +16,7 @@
 }
 
 .input {
-  width: 240px;
+  width: var(--ds-size-search-default);
   background-color: var(--ds-color-bg-surface);
   color: var(--ds-color-text-primary);
   border: none;
@@ -34,5 +34,5 @@
 
 .inputFull {
   composes: input;
-  width: 100%;
+  width: var(--ds-size-full);
 }

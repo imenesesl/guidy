@@ -1,19 +1,19 @@
 .base {
   font-family: var(--ds-font-family-sans);
   color: var(--ds-color-text-primary);
-  margin: 0;
+  margin: var(--ds-spacing-0);
 }
 
-.heading1 { composes: base; font-size: var(--ds-font-size-5xl); font-weight: var(--ds-font-weight-black); line-height: var(--ds-line-height-tight); letter-spacing: -0.04em; }
-.heading2 { composes: base; font-size: var(--ds-font-size-4xl); font-weight: var(--ds-font-weight-bold); line-height: var(--ds-line-height-tight); letter-spacing: -0.04em; }
+.heading1 { composes: base; font-size: var(--ds-font-size-5xl); font-weight: var(--ds-font-weight-black); line-height: var(--ds-line-height-tight); letter-spacing: var(--ds-letter-spacing-tight); }
+.heading2 { composes: base; font-size: var(--ds-font-size-4xl); font-weight: var(--ds-font-weight-bold); line-height: var(--ds-line-height-tight); letter-spacing: var(--ds-letter-spacing-tight); }
 .heading3 { composes: base; font-size: var(--ds-font-size-3xl); font-weight: var(--ds-font-weight-bold); line-height: var(--ds-line-height-snug); }
 .heading4 { composes: base; font-size: var(--ds-font-size-2xl); font-weight: var(--ds-font-weight-bold); line-height: var(--ds-line-height-snug); }
 .heading5 { composes: base; font-size: var(--ds-font-size-xl); font-weight: var(--ds-font-weight-bold); line-height: var(--ds-line-height-snug); }
 .bodyLarge { composes: base; font-size: var(--ds-font-size-lg); font-weight: var(--ds-font-weight-regular); line-height: var(--ds-line-height-normal); }
 .body { composes: base; font-size: var(--ds-font-size-base); font-weight: var(--ds-font-weight-regular); line-height: var(--ds-line-height-normal); }
 .bodySmall { composes: base; font-size: var(--ds-font-size-sm); font-weight: var(--ds-font-weight-regular); line-height: var(--ds-line-height-normal); }
-.caption { composes: base; font-size: var(--ds-font-size-xs); font-weight: var(--ds-font-weight-regular); line-height: var(--ds-line-height-normal); letter-spacing: 0.1em; }
-.overline { composes: base; font-size: var(--ds-font-size-xs); font-weight: var(--ds-font-weight-bold); line-height: var(--ds-line-height-normal); letter-spacing: 0.2em; text-transform: uppercase; }
+.caption { composes: base; font-size: var(--ds-font-size-xs); font-weight: var(--ds-font-weight-regular); line-height: var(--ds-line-height-normal); letter-spacing: var(--ds-letter-spacing-wide); }
+.overline { composes: base; font-size: var(--ds-font-size-xs); font-weight: var(--ds-font-weight-bold); line-height: var(--ds-line-height-normal); letter-spacing: var(--ds-letter-spacing-wider); text-transform: uppercase; }
 
 /* Color modifiers */
 .colorPrimary { color: var(--ds-color-text-primary); }

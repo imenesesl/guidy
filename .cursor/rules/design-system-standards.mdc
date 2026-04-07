@@ -31,27 +31,70 @@ import styles from './Card.module.css';
 <div className={styles.container}>
 ```
 
-## Design Tokens
+## Design Tokens — Enforced by Stylelint
 
-All visual values come from tokens. NEVER hardcode colors, spacing, typography, or shadows.
+All visual values come from tokens. NEVER hardcode colors, spacing, typography, shadows, or ANY dimensional value.
 
 Tokens live in `packages/ds/src/styles/tokens.css` and are consumed via CSS custom properties inside `.module.css` files.
+
+**This is enforced by Stylelint** (`pnpm lint:css`). The linter will reject ANY hardcoded value in `.module.css` files.
 
 ## Colors
 
 - ZERO hardcoded color values (`#hex`, `rgb()`, `hsl()`) in components.
-- All colors reference token variables.
-- Semantic naming: `--color-primary`, `--color-error`, `--color-surface`, not `--blue-500`.
+- All colors reference token variables: `var(--ds-color-*)`.
+- Semantic naming: `--ds-color-brand-primary`, `--ds-color-status-error`, not `--blue-500`.
 
 ## Typography
 
-- All font sizes, weights, and line heights come from tokens.
-- Use semantic type scales: `--text-heading-1`, `--text-body`, `--text-caption`.
+- All font sizes: `var(--ds-font-size-*)`.
+- All font weights: `var(--ds-font-weight-*)`.
+- All line heights: `var(--ds-line-height-*)`.
+- All letter spacings: `var(--ds-letter-spacing-*)`.
 
 ## Spacing
 
-- Use a spacing scale: `--spacing-1` through `--spacing-12` (or similar).
-- No magic pixel numbers in components.
+- ALL spacing uses tokens: `var(--ds-spacing-*)`. Including zero → `var(--ds-spacing-0)`.
+- No magic pixel numbers, no raw `rem`, `em`, `px` values.
+
+## Sizing
+
+- Component sizes use tokens: `var(--ds-size-*)`.
+- Layout values use tokens: `var(--ds-layout-*)`, `var(--ds-size-full)`, `var(--ds-size-screen-h)`.
+- No hardcoded `100%`, `100vh`, `240px`, etc. — use the corresponding token.
+
+## Borders
+
+- Border widths: `var(--ds-border-width-*)`.
+- Border radii: `var(--ds-radius-*)`.
+- Use longhand properties (`border-width`, `border-style`, `border-color`) instead of shorthand to keep each value tokenized.
+
+## Opacity
+
+- Use `var(--ds-opacity-disabled)` instead of raw `0.5`.
+
+## Animations
+
+- Duration tokens: `var(--ds-duration-*)`.
+- Easing tokens: `var(--ds-easing-*)`.
+
+## Available Token Categories
+
+| Category | Prefix | Example |
+|----------|--------|---------|
+| Colors | `--ds-color-*` | `--ds-color-brand-primary` |
+| Spacing | `--ds-spacing-*` | `--ds-spacing-4` |
+| Typography | `--ds-font-*` | `--ds-font-size-lg` |
+| Line heights | `--ds-line-height-*` | `--ds-line-height-normal` |
+| Letter spacing | `--ds-letter-spacing-*` | `--ds-letter-spacing-tight` |
+| Border widths | `--ds-border-width-*` | `--ds-border-width-thin` |
+| Radii | `--ds-radius-*` | `--ds-radius-md` |
+| Shadows | `--ds-shadow-*` | `--ds-shadow-md` |
+| Opacity | `--ds-opacity-*` | `--ds-opacity-disabled` |
+| Sizes | `--ds-size-*` | `--ds-size-full`, `--ds-size-icon-md` |
+| Layout | `--ds-layout-*` | `--ds-layout-max-width-md` |
+| Duration | `--ds-duration-*` | `--ds-duration-normal` |
+| Easing | `--ds-easing-*` | `--ds-easing-default` |
 
 ## Text & i18n
 

@@ -2,13 +2,13 @@
 *::before,
 *::after {
   box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+  margin: var(--ds-spacing-0);
+  padding: var(--ds-spacing-0);
 }
 
 html {
   font-family: var(--ds-font-family-sans);
-  font-size: 16px;
+  font-size: var(--ds-layout-font-base);
   line-height: var(--ds-line-height-normal);
   color: var(--ds-color-text-primary);
   background-color: var(--ds-color-bg-base);
@@ -17,7 +17,7 @@ html {
 }
 
 body {
-  min-height: 100vh;
+  min-height: var(--ds-size-screen-h);
 }
 
 a {
@@ -43,7 +43,7 @@ select {
 img,
 svg {
   display: block;
-  max-width: 100%;
+  max-width: var(--ds-size-full);
 }
 
 ul,

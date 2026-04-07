@@ -1,0 +1,91 @@
+---
+description: DevOps standards for CI/CD, deployment, and infrastructure
+alwaysApply: true
+---
+
+# DevOps Standards
+
+## Role: DevOps Engineer
+
+The DevOps role is responsible for:
+
+- CI/CD pipeline design, creation, and maintenance.
+- Automated validation gates (lint, typecheck, test, build, storybook).
+- Storybook deployment to GitHub Pages.
+- Bundle analysis automation.
+- Environment and infrastructure configuration.
+
+## CI/CD Pipeline — GitHub Actions
+
+All validation and deployment runs through GitHub Actions. The pipeline must enforce every quality gate before merging.
+
+### Validation Pipeline (on every PR)
+
+Every Pull Request triggers these steps **in order**. If any step fails, the pipeline stops.
+
+```
+Validation Steps:
+  1. Install dependencies     — pnpm install --frozen-lockfile
+  2. Lint                     — pnpm lint (all packages + apps)
+  3. Typecheck                — pnpm typecheck (all packages + apps)
+  4. Unit & integration tests — pnpm test (all packages + apps)
+  5. Build apps               — pnpm build:core (and any other app builds)
+  6. Build Storybook (DS)     — pnpm storybook:build:ds
+  7. Build Storybook (Core)   — pnpm storybook:build:core
+  8. Bundle analysis           — compare bundle size vs main branch
+```
+
+### Deployment Pipeline (on merge to main)
+
+After merging to `main`, additional steps deploy artifacts:
+
+```
+Deployment Steps:
+  1. Run full validation pipeline above
+  2. Build all Storybooks
+  3. Deploy combined Storybook to GitHub Pages
+```
+
+## Storybook Deployment — GitHub Pages
+
+- Storybooks are deployed to GitHub Pages on every merge to `main`.
+- The DS Storybook and each app Storybook are built and combined into a single static site.
+- Output structure:
+
+```
+gh-pages/
+├── index.html         # landing page with links to each Storybook
+├── ds/                # DS Storybook
+└── core/              # Core app Storybook
+```
+
+- The deployment uses `peaceiris/actions-gh-pages` or equivalent action.
+- GitHub Pages must be configured to serve from the `gh-pages` branch.
+
+## Storybook Rules
+
+- **Every component MUST have a Storybook story** — atoms, molecules, organisms, pages.
+- **Stories live colocated** with their component: `Component.stories.tsx` next to `Component.tsx`.
+- **Storybook must build without errors** — this is a hard CI gate.
+- **Stories must cover all variants/states** — sizes, colors, disabled, error, loading.
+- DS Storybook runs on port 6006, app Storybooks on 6007+.
+
+## Environment
+
+- **Node.js 22** — enforced via `.nvmrc`.
+- **pnpm** — enforced in CI via `corepack enable`.
+- CI runner: `ubuntu-latest`.
+- Cache: pnpm store cached between runs.
+
+## Branch Strategy
+
+- `main` — production-ready, always green.
+- Feature branches: `feat/<name>`, `fix/<name>`, `chore/<name>`.
+- PRs require passing CI before merge.
+- PRs require at least the labels: `ai`, `cursor`.
+
+## Secrets & Configuration
+
+- No secrets in code. Use GitHub Secrets for tokens and keys.
+- Environment-specific config via `.env` files (never committed).
+- `.env.example` documenting required variables.

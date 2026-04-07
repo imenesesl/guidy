@@ -34,16 +34,18 @@ Quality Gate:
   [ ] Bundle analysis — documented and compared to previous
 ```
 
-## File Size
+## File Size — Enforced by ESLint `max-lines`
 
-- No file may exceed **150 lines**. Scan all changed files with `wc -l`.
+- No file may exceed **150 lines**. Enforced by ESLint `max-lines` rule (`max: 150`, `skipBlankLines: true`, `skipComments: true`).
+- Also validated by CI workflow and the audit script (`pnpm audit`).
 - If any file exceeds the limit, it must be refactored before pushing.
 - This is a hard limit, not a suggestion.
 
-## Linter
+## Linter — ESLint + Stylelint
 
-- Run ESLint with the project's flat config. Zero errors, zero warnings.
-- Create/update lint scripts in `package.json` if missing.
+- **ESLint**: `pnpm lint` — flat config, zero errors, zero warnings. Includes `max-lines` enforcement.
+- **Stylelint**: `pnpm lint:css` — enforces that ALL dimensional values in `.module.css` files use `var(--ds-*)` tokens. No hardcoded colors, spacing, sizing, opacity, border-radius, font values, or any numeric values.
+- Both run as part of `pnpm lint` and are enforced in CI.
 
 ## TypeScript Strict
 
@@ -56,13 +58,23 @@ Quality Gate:
 - All styling must use `className` with CSS Modules.
 - Exception: truly dynamic values computed at runtime (e.g. `style={{ '--progress': percent }}` for CSS variable injection) — must be justified.
 
-## No Hardcoded Values
+## No Hardcoded Values — Enforced by Stylelint
 
-Scan for violations:
+**Stylelint** (`pnpm lint:css`) enforces that ALL of the following properties MUST use `var(--ds-*)`:
 
-- **Colors**: no `#hex`, `rgb()`, `hsl()` in `.tsx` or `.module.css` files (only in token definitions).
+- **Colors**: `color`, `background-color`, `border-color`, `fill`, `stroke`, `outline-color`
+- **Spacing**: `margin`, `padding`, `gap`, `top`, `right`, `bottom`, `left`
+- **Sizing**: `width`, `height`, `min-width`, `max-width`, `min-height`, `max-height`
+- **Typography**: `font-size`, `font-weight`, `font-family`, `line-height`, `letter-spacing`
+- **Borders**: `border-width`, `border-radius`
+- **Effects**: `box-shadow`, `opacity`
+
+Allowed CSS keywords: `inherit`, `initial`, `unset`, `revert`, `none`, `auto`, `transparent`, `currentColor`.
+Everything else MUST be a `var()` reference to a design token.
+
+Token definitions (`tokens.css`) and global reset (`reset.css`) are excluded from this check.
+
 - **Text**: no raw strings in JSX that are user-visible. All must use `t()` from i18n.
-- **Spacing**: no magic pixel values outside token definitions.
 - **Styles between modules**: no importing one component's `.module.css` from another component.
 
 ## Unused Code
@@ -81,10 +93,20 @@ Before and after significant changes:
 4. Document comparison in the PR or commit message.
 5. Flag any increase > 5% for review.
 
-## Test Requirements
+## Test Requirements — Mandatory, No Exceptions
 
-- Component tests via Storybook interaction tests.
-- Unit tests for hooks, utilities, helpers (Vitest).
-- E2E tests for feature flows using injected mock dependencies.
+- **Component tests**: EVERY component must have a `.test.tsx` — atoms, molecules, organisms, pages.
+- **Storybook stories**: EVERY component must have a `.stories.tsx` covering all variants and states.
+- **Unit tests**: EVERY hook, utility, helper, service, schema must have a `.test.ts`.
+- **E2E feature tests**: EVERY feature flow must have integration tests with injected mock dependencies.
 - No Playwright — use Vitest + Testing Library or Storybook test runner.
 - All injectable dependencies must be mockable for testing.
+- **Coverage thresholds**: 80% minimum for branches, functions, lines, statements.
+- **The "No Test, No Push" rule**: if code lacks its test or story file, it is incomplete and must not be pushed.
+
+## Storybook Validation
+
+- `pnpm storybook:build` must complete with ZERO errors.
+- Every component must have a `.stories.tsx` file.
+- Stories must cover all variants, sizes, and states.
+- Storybook is deployed to GitHub Pages on merge to `main`.

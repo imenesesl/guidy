@@ -89,5 +89,44 @@
   --ds-duration-fast: 100ms;
   --ds-duration-normal: 200ms;
   --ds-duration-slow: 300ms;
+  --ds-duration-spin: 0.8s;
   --ds-easing-default: cubic-bezier(0.3, 0, 0, 1);
+
+  /* Opacity */
+  --ds-opacity-disabled: 0.5;
+
+  /* Border widths */
+  --ds-border-width-thin: 1px;
+  --ds-border-width-medium: 2px;
+  --ds-border-width-thick: 3px;
+
+  /* Letter spacing */
+  --ds-letter-spacing-tight: -0.04em;
+  --ds-letter-spacing-wide: 0.1em;
+  --ds-letter-spacing-wider: 0.2em;
+
+  /* Line height (additional) */
+  --ds-line-height-none: 1;
+
+  /* Sizing — component sizes */
+  --ds-size-full: 100%;
+  --ds-size-screen-h: 100vh;
+  --ds-size-screen-w: 100vw;
+  --ds-size-icon-sm: 2rem;
+  --ds-size-icon-md: 2.5rem;
+  --ds-size-icon-lg: 3rem;
+  --ds-size-avatar-sm: 2rem;
+  --ds-size-avatar-md: 2.5rem;
+  --ds-size-avatar-lg: 3.5rem;
+  --ds-size-avatar-xl: 5rem;
+  --ds-size-spinner-sm: 1rem;
+  --ds-size-spinner-md: 1.5rem;
+  --ds-size-spinner-lg: 2.5rem;
+  --ds-size-search-default: 240px;
+  --ds-size-icon-search: 16px;
+
+  /* Layout */
+  --ds-layout-max-width-md: 800px;
+  --ds-layout-grid-min-col: 300px;
+  --ds-layout-font-base: 16px;
 }

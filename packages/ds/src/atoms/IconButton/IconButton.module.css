@@ -16,10 +16,10 @@
 }
 
 .base:disabled {
-  opacity: 0.5;
+  opacity: var(--ds-opacity-disabled);
   cursor: not-allowed;
 }
 
-.sm { width: 2rem; height: 2rem; }
-.md { width: 2.5rem; height: 2.5rem; }
-.lg { width: 3rem; height: 3rem; }
+.sm { width: var(--ds-size-icon-sm); height: var(--ds-size-icon-sm); }
+.md { width: var(--ds-size-icon-md); height: var(--ds-size-icon-md); }
+.lg { width: var(--ds-size-icon-lg); height: var(--ds-size-icon-lg); }

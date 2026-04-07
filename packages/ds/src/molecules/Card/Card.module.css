@@ -22,5 +22,7 @@
 .outlined {
   composes: base;
   background-color: transparent;
-  border: 1px solid var(--ds-color-border-default);
+  border-width: var(--ds-border-width-thin);
+  border-style: solid;
+  border-color: var(--ds-color-border-default);
 }

@@ -1,0 +1,155 @@
+---
+description: QA testing standards — tests are mandatory for all code, no exceptions
+globs: apps/web/**/*.{ts,tsx}, packages/**/*.{ts,tsx}
+alwaysApply: false
+---
+
+# QA Testing Standards
+
+**ABSOLUTE RULE: Every piece of code MUST have tests. No exceptions. No omissions.**
+
+## Test Coverage Requirements
+
+| What | Test Type | Tool | Required |
+|------|-----------|------|----------|
+| Atoms (DS) | Component tests + Stories | Storybook | YES — all variants, sizes, states |
+| Molecules (DS) | Component tests + Stories | Storybook | YES — all variants and compositions |
+| Organisms | Component tests + Stories | Storybook + Vitest | YES |
+| Pages | Feature integration tests | Vitest + Testing Library | YES |
+| Hooks | Unit tests | Vitest + renderHook | YES — every hook, every branch |
+| Utilities | Unit tests | Vitest | YES — every function, every edge case |
+| Services | Unit tests with mocks | Vitest | YES — mock all dependencies |
+| Schemas | Validation tests | Vitest | YES — valid + invalid inputs |
+| Constants | Snapshot or value tests | Vitest | YES — ensure values don't change |
+
+## File Structure
+
+Tests are ALWAYS colocated with the code they test:
+
+```
+Button/
+├── Button.tsx
+├── Button.module.css
+├── Button.stories.tsx      # Storybook story — MANDATORY
+├── Button.test.tsx         # Component test — MANDATORY
+└── index.ts
+```
+
+```
+hooks/
+├── useAuth.ts
+└── useAuth.test.ts          # MANDATORY
+```
+
+## Storybook Stories — Mandatory
+
+Every component MUST have a `.stories.tsx` file that:
+
+1. Defines a `Meta` with proper `title` following Atomic Design hierarchy.
+2. Has a `Default` story with typical props.
+3. Has stories for EVERY variant (e.g., `Primary`, `Secondary`, `Ghost`).
+4. Has stories for EVERY size (e.g., `Small`, `Medium`, `Large`).
+5. Has stories for EVERY state (e.g., `Disabled`, `Error`, `Loading`).
+6. Uses `argTypes` for interactive controls.
+
+```typescript
+// MINIMUM required stories for a component with variants and sizes
+export const Default: Story = { args: { ... } };
+export const VariantA: Story = { args: { variant: 'a' } };
+export const VariantB: Story = { args: { variant: 'b' } };
+export const Small: Story = { args: { size: 'sm' } };
+export const Large: Story = { args: { size: 'lg' } };
+export const Disabled: Story = { args: { disabled: true } };
+```
+
+## Unit Tests — Mandatory
+
+Every hook, utility, service, and schema MUST have a `.test.ts` file:
+
+```typescript
+import { describe, it, expect } from 'vitest';
+import { formatDate } from './date.utils';
+
+describe('formatDate', () => {
+  it('formats ISO date to display format', () => {
+    expect(formatDate('2024-01-15')).toBe('Jan 15, 2024');
+  });
+
+  it('handles invalid input', () => {
+    expect(formatDate('')).toBe('Invalid date');
+  });
+});
+```
+
+## Component Tests — Mandatory
+
+Every component MUST have a `.test.tsx` with render and interaction tests:
+
+```typescript
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import { describe, it, expect, vi } from 'vitest';
+import { Button } from './Button';
+
+describe('Button', () => {
+  it('renders children', () => {
+    render(<Button>Click me</Button>);
+    expect(screen.getByText('Click me')).toBeInTheDocument();
+  });
+
+  it('calls onClick when clicked', async () => {
+    const onClick = vi.fn();
+    render(<Button onClick={onClick}>Click</Button>);
+    await userEvent.click(screen.getByText('Click'));
+    expect(onClick).toHaveBeenCalledOnce();
+  });
+
+  it('is disabled when disabled prop is true', () => {
+    render(<Button disabled>Click</Button>);
+    expect(screen.getByText('Click')).toBeDisabled();
+  });
+});
+```
+
+## E2E Feature Tests — Mandatory
+
+Every feature flow MUST be tested end-to-end:
+
+- Use Vitest + Testing Library (no Playwright).
+- Use Dependency Injection to mock services.
+- Test the full user flow: render → interact → assert.
+- Mock API calls via injected service interfaces.
+
+## Coverage Thresholds
+
+Enforced in `vitest.config.ts`:
+
+```typescript
+coverage: {
+  provider: 'v8',
+  thresholds: {
+    branches: 80,
+    functions: 80,
+    lines: 80,
+    statements: 80,
+  },
+}
+```
+
+## Pre-push Test Checklist
+
+```
+[ ] Every component has a .stories.tsx
+[ ] Every component has a .test.tsx
+[ ] Every hook has a .test.ts
+[ ] Every utility has a .test.ts
+[ ] Every service has a .test.ts
+[ ] Every schema has a .test.ts
+[ ] All tests pass (pnpm test)
+[ ] Coverage thresholds met
+[ ] Storybook builds without errors
+```
+
+## The "No Test, No Push" Rule
+
+If a file exists without its corresponding test or story file, it is **incomplete** and MUST NOT be pushed. The Auditor role will reject any code that lacks tests.

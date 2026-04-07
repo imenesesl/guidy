@@ -1,12 +1,12 @@
 .page {
-  min-height: 100vh;
+  min-height: var(--ds-size-screen-h);
   background-color: var(--ds-color-bg-base);
   padding: var(--ds-spacing-8);
 }
 
 .container {
-  max-width: 800px;
-  margin: 0 auto;
+  max-width: var(--ds-layout-max-width-md);
+  margin: var(--ds-spacing-0) auto;
 }
 
 .header {
@@ -24,7 +24,7 @@
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(var(--ds-layout-grid-min-col), 1fr));
   gap: var(--ds-spacing-4);
 }
 

@@ -11,10 +11,10 @@ description: >-
 
 ## Overview
 
-Every web feature goes through 6 roles in sequence. Each role produces an output that feeds the next.
+Every web feature goes through 7 roles in sequence. Each role produces an output that feeds the next.
 
 ```
-Architect → Staff Frontend → Staff Design Engineer → Senior Engineer → QA → Auditor
+Architect → Staff Frontend → Staff Design Engineer → Senior Engineer → QA → Auditor → DevOps
 ```
 
 ## Phase 1 — Architect
@@ -162,41 +162,57 @@ Implementation:
 
 ## Phase 5 — QA
 
-**Goal**: Create and run comprehensive tests.
+**Goal**: Create tests for EVERYTHING. No exceptions. No omissions.
+
+**ABSOLUTE RULE**: Every piece of code produced must have tests. If code exists, tests exist.
 
 ### Actions
 
-1. **Component tests** (Storybook):
-   - Write interaction tests in stories for all new components.
-   - Test all variants and edge cases.
+1. **Storybook stories** (MANDATORY for every component):
+   - Every atom, molecule, organism, and page gets a `.stories.tsx`.
+   - Stories cover ALL variants, sizes, and states.
+   - Use `argTypes` for interactive controls.
    - Use `play` functions for interaction testing.
 
-2. **Unit tests** (Vitest):
-   - Test every custom hook in isolation.
-   - Test every utility/helper function.
-   - Test Valibot schemas with valid and invalid inputs.
-   - Test service implementations.
+2. **Component tests** (MANDATORY for every component):
+   - Every component gets a `.test.tsx` colocated next to it.
+   - Test rendering, props, interactions, edge cases.
 
-3. **Feature E2E tests** (Vitest + Testing Library):
-   - Test full feature flows by rendering the feature with injected mock dependencies.
+3. **Unit tests** (MANDATORY for every hook, utility, service, schema):
+   - Every hook → `.test.ts`
+   - Every utility → `.test.ts`
+   - Every service → `.test.ts`
+   - Every schema → `.test.ts` with valid + invalid inputs.
+   - Every constants module → `.test.ts`
+
+4. **Feature E2E tests** (MANDATORY for every feature):
+   - Test full feature flows by rendering with injected mock dependencies.
    - Verify the DI pattern works — all dependencies are mockable.
    - Test happy paths and error paths.
 
-4. Run all tests and verify they pass.
+5. Run ALL tests and verify 100% pass rate.
+6. Verify coverage thresholds (80% branches, functions, lines, statements).
 
 ### Test Structure
 
+Tests are ALWAYS colocated with the code they test:
+
 ```
 features/<name>/
-├── __tests__/
-│   ├── hooks/
-│   │   └── useFeature.test.ts
-│   ├── services/
-│   │   └── featureService.test.ts
-│   ├── schemas/
-│   │   └── featureSchema.test.ts
-│   └── integration/
-│       └── FeatureFlow.test.tsx
+├── hooks/
+│   ├── useFeature.ts
+│   └── useFeature.test.ts        # MANDATORY
+├── services/
+│   ├── feature.service.ts
+│   └── feature.service.test.ts   # MANDATORY
+├── schemas/
+│   ├── feature.schema.ts
+│   └── feature.schema.test.ts    # MANDATORY
+├── pages/
+│   ├── FeaturePage.tsx
+│   ├── FeaturePage.module.css
+│   ├── FeaturePage.stories.tsx    # MANDATORY
+│   └── FeaturePage.test.tsx       # MANDATORY
 ```
 
 ### Requirements
@@ -204,6 +220,7 @@ features/<name>/
 - NO Playwright.
 - All external dependencies mocked via DI.
 - Coverage thresholds must be met.
+- **"No Test, No Push"**: code without tests is incomplete and MUST NOT be pushed.
 
 ## Phase 6 — Auditor
 
@@ -245,3 +262,30 @@ If ANY check fails:
 - Send back for fixing.
 - Re-run the audit after fixes.
 - Only push when ALL checks pass.
+
+## Phase 7 — DevOps
+
+**Goal**: Ensure CI/CD pipeline validates and deploys correctly.
+
+### Actions
+
+1. Verify GitHub Actions CI workflow runs all validation steps.
+2. Verify Storybook deployment workflow is configured.
+3. If a new app or package was added:
+   - Update CI workflow to include new build/test targets.
+   - Update Storybook deployment to include new Storybook.
+   - Update the GitHub Pages landing page.
+4. Verify branch strategy is followed (feat/, fix/, chore/).
+5. Ensure PR has required labels (`ai`, `cursor`).
+
+### Output — Pipeline Status
+
+```
+CI/CD Status:
+  [PASS] ci.yml — all steps configured
+  [PASS] deploy-storybook.yml — deployment configured
+  [PASS] New targets included in pipeline
+  [PASS] Labels applied to PR
+
+Ready to merge.
+```

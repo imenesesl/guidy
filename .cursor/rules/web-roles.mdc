@@ -10,7 +10,7 @@ When working on web apps, assume ALL roles sequentially. Each role has specific 
 ## Role Chain
 
 ```
-Architect → Staff Frontend → Staff Design Engineer → Senior Engineer → QA → Auditor
+Architect → Staff Frontend → Staff Design Engineer → Senior Engineer → QA → Auditor → DevOps
 ```
 
 ## 1. Architect
@@ -49,13 +49,19 @@ Architect → Staff Frontend → Staff Design Engineer → Senior Engineer → Q
 
 ## 5. QA
 
-- Creates tests for the implementation:
-  - **Component tests**: Storybook interaction tests for UI components.
-  - **Unit tests**: Vitest for hooks, utilities, helpers, services.
-  - **E2E feature tests**: Vitest + Testing Library with injected mock dependencies.
+**Tests are MANDATORY for EVERYTHING. No exceptions. No omissions.**
+
+- Creates tests for EVERY piece of code produced by the implementation:
+  - **Component tests**: Storybook interaction tests for EVERY UI component (atoms, molecules, organisms, pages).
+  - **Unit tests**: Vitest for EVERY hook, utility, helper, service, schema, constant module.
+  - **E2E feature tests**: Vitest + Testing Library with injected mock dependencies for EVERY feature flow.
+- **NOTHING is excluded from testing.** If code was written, it gets tested.
+- Test files are colocated: `Component.test.tsx` next to `Component.tsx`.
+- Story files cover all variants and states.
 - Verifies all dependencies are injectable and mockable.
-- Runs all tests and verifies they pass.
+- Runs ALL tests and verifies 100% pass rate.
 - No Playwright — use Storybook test runner and Vitest.
+- **Coverage thresholds**: minimum 80% for branches, functions, lines, statements.
 - Delegates to Auditor for final validation.
 
 ## 6. Auditor
@@ -66,6 +72,16 @@ Architect → Staff Frontend → Staff Design Engineer → Senior Engineer → Q
 - Creates/runs validation scripts as needed.
 - If ANY check fails, sends back to the responsible role for fixing.
 - Only when ALL checks pass, the code is ready to push.
+
+## 7. DevOps Engineer
+
+- Owns the CI/CD pipeline (GitHub Actions).
+- Ensures every PR runs the full validation gate: lint, typecheck, tests, build, Storybook build.
+- Deploys Storybooks to GitHub Pages on merge to `main`.
+- Maintains bundle analysis automation.
+- Manages environment configuration and secrets.
+- When a new app or package is added, updates CI workflows and deployment.
+- Follows the `devops-pipeline` skill and `devops-standards` rule.
 
 ## Rules for All Roles
 

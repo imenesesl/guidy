@@ -5,8 +5,20 @@
   "scripts": {
     "dev:core": "pnpm --filter @guidy/core dev",
     "build:core": "pnpm --filter @guidy/core build",
-    "lint": "pnpm -r --if-present run lint",
+    "lint": "pnpm -r --if-present run lint && pnpm lint:css",
+    "lint:css": "stylelint \"packages/**/*.module.css\" \"apps/**/*.module.css\"",
     "typecheck": "pnpm -r --if-present run typecheck",
-    "test": "pnpm -r --if-present run test"
+    "test": "pnpm -r --if-present run test",
+    "storybook:ds": "pnpm --filter @guidy/ds storybook",
+    "storybook:core": "pnpm --filter @guidy/core storybook",
+    "storybook:build:ds": "pnpm --filter @guidy/ds storybook:build",
+    "storybook:build:core": "pnpm --filter @guidy/core storybook:build",
+    "storybook:build": "pnpm storybook:build:ds && pnpm storybook:build:core",
+    "quality-gate": "bash tools/scripts/audit.sh"
+  },
+  "devDependencies": {
+    "stylelint": "^17.6.0",
+    "stylelint-config-standard": "^40.0.0",
+    "stylelint-declaration-strict-value": "^1.11.1"
   }
 }
