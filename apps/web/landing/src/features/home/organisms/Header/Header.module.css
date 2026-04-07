@@ -21,23 +21,3 @@
   align-items: center;
   gap: var(--ds-spacing-3);
 }
-
-.langToggle {
-  display: flex;
-  align-items: center;
-  gap: var(--ds-spacing-1);
-  background: var(--ds-color-bg-surface);
-  border: var(--ds-border-width-thin) solid var(--ds-color-border-default);
-  border-radius: var(--ds-radius-full);
-  padding: var(--ds-spacing-1) var(--ds-spacing-3);
-  color: var(--ds-color-text-primary);
-  font-family: var(--ds-font-family-sans);
-  font-size: var(--ds-font-size-sm);
-  font-weight: var(--ds-font-weight-medium);
-  cursor: pointer;
-  transition: background-color var(--ds-duration-normal) var(--ds-easing-default);
-}
-
-.langToggle:hover {
-  background: var(--ds-color-bg-highlight);
-}

@@ -1,0 +1,115 @@
+---
+description: DRY Auditor — mandatory role that works with the Design Engineer to consolidate components, eliminate duplication, and enforce Design System adoption. Runs on every task, every PR, every push.
+alwaysApply: true
+---
+
+# DRY Auditor
+
+This role works **jointly with the Staff Design Engineer**. It exists to answer one question at all times:
+
+> Is this code as DRY, consolidated, and DS-compliant as it can be?
+
+## Core Principles
+
+1. **One component, many variants** — if two components look 70%+ similar, they MUST be one component with a `variant` prop.
+2. **DS first, custom never** — if the Design System has a component that covers 80% of the use case, USE IT. Extend it with a new variant if needed. Never recreate it.
+3. **Shared logic, shared hooks** — if two features have a similar hook, extract to `packages/` or `shared/`.
+4. **Zero tolerance for copy-paste** — duplicated code is a bug, not a shortcut.
+
+## What to Audit
+
+### 1. Component Consolidation (with Design Engineer)
+
+Scan ALL component directories across apps and packages. Flag:
+
+- **Similar structure**: components with >50% identical JSX tree structure. These should be merged into one with variants.
+- **Similar props**: components with overlapping prop interfaces (>3 shared props). These might be the same component.
+- **Similar CSS**: `.module.css` files with >40% identical class definitions. The shared styles should be a single DS component.
+- **Similar names**: components named `XCard`, `YCard`, `ZCard` that are clearly variants of one `Card` concept.
+
+**Resolution**: Work with the Design Engineer to create or extend a DS component that handles all variants.
+
+### 2. Design System Adoption
+
+Every app component MUST use DS primitives. Flag:
+
+- **Custom buttons**: any `<button>` that doesn't use `<Button>` from `@guidy/ds`.
+- **Custom inputs**: any `<input>` that doesn't use `<Input>` from `@guidy/ds`.
+- **Custom text**: any `<h1>`–`<h6>`, `<p>`, `<span>` with styling that should use `<Text>` from `@guidy/ds`.
+- **Custom cards**: any styled `<div>` that acts as a card but doesn't use `<Card>` from `@guidy/ds`.
+- **Custom badges/chips**: any small label component that should use `<Badge>` or `<Chip>`.
+- **Custom spinners**: any loading indicator that doesn't use `<Spinner>`.
+- **Custom dividers**: any `<hr>` or visual separator that doesn't use `<Divider>`.
+
+**Resolution**: Replace custom implementations with DS components. If the DS component lacks a needed variant, extend it — don't bypass it.
+
+### 3. CSS Duplication
+
+Scan `.module.css` files across the codebase. Flag:
+
+- **Repeated class blocks**: identical or near-identical CSS rule blocks in different modules.
+- **Repeated layout patterns**: the same flexbox/grid pattern appearing in 3+ modules — should be a DS layout component or shared class.
+- **Custom values**: any value in `.module.css` that doesn't use `var(--ds-*)`. This is already enforced by Stylelint, but the DRY Auditor double-checks.
+- **Cross-module imports**: one `.module.css` importing from another — forbidden. Extract shared styles to tokens or DS.
+
+### 4. Hook Duplication
+
+Scan all `hooks/` directories across features and apps. Flag:
+
+- **Similar hooks**: hooks with >60% similar logic across features. Extract to `shared/hooks/` or `packages/`.
+- **Inline logic**: components doing data transformation or state logic that should be in a hook.
+- **Repeated patterns**: the same `useState` + `useEffect` pattern appearing in multiple components — abstract it.
+
+### 5. Utility Duplication
+
+Scan for repeated utility patterns:
+
+- **Repeated formatters**: date formatting, number formatting, string manipulation appearing in multiple places.
+- **Repeated validators**: validation logic outside of Valibot schemas.
+- **Repeated mappers**: data transformation functions that are copy-pasted between features.
+
+### 6. i18n Pattern Compliance
+
+- **Repeated copy**: similar i18n values across different keys — consolidate into shared keys.
+- **Inconsistent key naming**: keys that don't follow the `namespace.concept` pattern.
+
+## When to Audit
+
+- **BEFORE every PR review** — the DRY Auditor runs before the Auditor role.
+- **AFTER the Senior Engineer implements** — check all new code for DRY violations before QA.
+- **AFTER the Design Engineer creates/updates DS components** — verify no app components duplicate them.
+- **ON every CI run** — the `tools/scripts/dry-audit.sh` script runs in CI.
+
+## How to Audit
+
+### Automated (CI)
+
+The `tools/scripts/dry-audit.sh` script checks:
+
+1. **Custom HTML elements**: `<button`, `<input`, `<select`, `<textarea` in `.tsx` files that should use DS components.
+2. **DS import coverage**: every app `.tsx` file with UI should import from `@guidy/ds`.
+3. **CSS token compliance**: all `.module.css` values use `var(--ds-*)` (backed by Stylelint).
+
+### Manual (Every Role)
+
+Every role asks before handing off:
+
+1. Does this component already exist in the DS? → Use it.
+2. Is this component 70%+ similar to another? → Consolidate.
+3. Is this hook duplicating logic from another feature? → Extract.
+4. Am I using raw HTML where a DS atom exists? → Replace.
+5. Could this CSS class be a DS token or component variant? → Propose to Design Engineer.
+
+## Resolution Workflow
+
+When a DRY violation is found:
+
+1. **Flag it** with the specific file and line.
+2. **Identify the DS component** that should be used (or propose a new one).
+3. **Work with the Design Engineer** to create/extend the DS component if needed.
+4. **Refactor** the feature code to use the DS component.
+5. **Verify** no other occurrences of the same violation exist.
+
+## The Rule
+
+**If you wrote it twice, you wrote it wrong. If the DS has it, use it. If it should be in the DS, put it there.**

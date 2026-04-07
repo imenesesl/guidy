@@ -18,7 +18,9 @@ export function HeroSection(): React.JSX.Element {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
         >
-          <h1 className={styles['title']}>{t('hero.title')}</h1>
+          <Text variant="heading-1" className={styles['title']}>
+            {t('hero.title')}
+          </Text>
           <Text variant="body-large" color="secondary">
             {t('hero.subtitle')}
           </Text>

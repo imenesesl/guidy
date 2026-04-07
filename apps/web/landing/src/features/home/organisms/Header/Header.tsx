@@ -15,15 +15,15 @@ export function Header(): React.JSX.Element {
           Guidy
         </Text>
         <div className={styles['actions']}>
-          <button
-            type="button"
-            className={styles['langToggle']}
+          <Button
+            variant="secondary"
+            size="sm"
             onClick={toggle}
             aria-label={t('header.change_lang')}
           >
             <Globe size={16} />
-            <span>{language.toUpperCase()}</span>
-          </button>
+            {language.toUpperCase()}
+          </Button>
           <Button variant="ghost" size="sm" onClick={() => undefined}>
             {t('header.login')}
           </Button>

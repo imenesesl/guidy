@@ -10,12 +10,13 @@ When working on web apps, assume ALL roles sequentially. Each role has specific 
 ## Role Chain
 
 ```
-Architect → Staff Frontend → Staff Design Engineer → Motion Designer → Senior Engineer → QA → Auditor → DevOps
+Architect → Staff Frontend → Staff Design Engineer → DRY Auditor → Motion Designer → Senior Engineer → QA → Auditor → DevOps
 ```
 
-## Universal Skill: Dead Code Auditor
+## Universal Skills (ALL roles, ALL tasks)
 
-**Every role** must exercise the Dead Code Auditor skill (see `dead-code-auditor.mdc`). Before finishing any task, audit for unused files, exports, imports, dependencies, i18n keys, CSS classes, and dead code. Delete everything that is not used. No exceptions.
+1. **Dead Code Auditor** (see `dead-code-auditor.mdc`): Before finishing any task, audit for unused files, exports, imports, dependencies, i18n keys, CSS classes, and dead code. Delete everything that is not used.
+2. **DRY Auditor** (see `dry-auditor.mdc`): Before finishing any task, check for component duplication, DS adoption violations, hook/utility duplication, and CSS copy-paste. If it exists in the DS, use it. If two things are similar, consolidate.
 
 ## 1. Architect
 
@@ -43,7 +44,17 @@ Architect → Staff Frontend → Staff Design Engineer → Motion Designer → S
 - Produces a component inventory for the execution plan.
 - Delegates to Motion Designer for visual elements.
 
-## 4. Motion Designer
+## 4. DRY Auditor
+
+- Works **jointly with Staff Design Engineer** before implementation begins.
+- Scans all existing components for consolidation opportunities (similar structure, props, or CSS).
+- Verifies every app component uses DS primitives — flags custom `<button>`, `<input>`, `<h1>`–`<h6>` that bypass DS atoms.
+- Checks for duplicated hooks, utilities, CSS patterns, and i18n values across features.
+- Proposes DS extensions to the Design Engineer when a missing variant is found.
+- Runs `tools/scripts/dry-audit.sh` and resolves all findings before handoff.
+- See `dry-auditor.mdc` for full checklist.
+
+## 5. Motion Designer
 
 - Creates all animations and visual interactions using **Motion for React** (`motion/react`).
 - Uses **Lucide** (`lucide-react`) for all icons.
@@ -52,7 +63,7 @@ Architect → Staff Frontend → Staff Design Engineer → Motion Designer → S
 - See `motion-design.mdc` for full standards.
 - Delegates to Senior Engineer with the visual component inventory.
 
-## 5. Senior Engineer
+## 6. Senior Engineer
 
 - Receives the execution plan from the chain above.
 - Implements following ALL rules: react-web-standards, design-system-standards.
@@ -60,7 +71,7 @@ Architect → Staff Frontend → Staff Design Engineer → Motion Designer → S
 - Creates feature code with proper DI, hooks, schemas.
 - Delegates to QA for testing.
 
-## 6. QA
+## 7. QA
 
 **Tests are MANDATORY for EVERYTHING. No exceptions. No omissions.**
 
@@ -77,17 +88,18 @@ Architect → Staff Frontend → Staff Design Engineer → Motion Designer → S
 - **Coverage thresholds**: minimum 80% for branches, functions, lines, statements.
 - Delegates to Auditor for final validation.
 
-## 7. Auditor
+## 8. Auditor
 
 - Runs the full quality gate (see `web-quality-gate.mdc`).
 - Validates: linter, TypeScript strict, no hardcoded colors/text, i18n, unused code.
 - **Executes the Dead Code Auditor skill thoroughly** — this is the final sweep.
+- **Executes the DRY Auditor checks** — runs `tools/scripts/dry-audit.sh` and resolves all findings.
 - Analyzes bundle size and documents before/after comparison.
 - Creates/runs validation scripts as needed.
 - If ANY check fails, sends back to the responsible role for fixing.
 - Only when ALL checks pass, the code is ready to push.
 
-## 8. DevOps Engineer
+## 9. DevOps Engineer
 
 - Owns the CI/CD pipeline (GitHub Actions).
 - Ensures every PR runs the full validation gate: lint, typecheck, tests, build, Storybook build.
@@ -102,6 +114,7 @@ Architect → Staff Frontend → Staff Design Engineer → Motion Designer → S
 - Every role follows react-web-standards, design-system-standards, and web-quality-gate rules.
 - Every role reads and follows the `react-web-app` and `web-workflow` skills.
 - Every role exercises the Dead Code Auditor skill before handoff.
+- Every role exercises the DRY Auditor skill before handoff.
 - New patterns discovered during any phase are documented as rules.
 - All roles respect feature isolation — no cross-feature deep imports.
 

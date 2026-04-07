@@ -2,19 +2,19 @@
 name: web-workflow
 description: >-
   End-to-end role-based workflow for developing web features. Orchestrates
-  Architect, Staff Frontend, Staff Design Engineer, Senior Engineer, QA,
-  and Auditor roles. Use when building features, implementing changes, or
-  executing any web development task in apps/web/.
+  Architect, Staff Frontend, Staff Design Engineer, DRY Auditor, Motion Designer,
+  Senior Engineer, QA, Auditor, and DevOps roles. Use when building features,
+  implementing changes, or executing any web development task in apps/web/.
 ---
 
 # Web Workflow
 
 ## Overview
 
-Every web feature goes through 7 roles in sequence. Each role produces an output that feeds the next.
+Every web feature goes through 9 roles in sequence. Each role produces an output that feeds the next.
 
 ```
-Architect → Staff Frontend → Staff Design Engineer → Senior Engineer → QA → Auditor → DevOps
+Architect → Staff Frontend → Staff Design Engineer → DRY Auditor → Motion Designer → Senior Engineer → QA → Auditor → DevOps
 ```
 
 ## Phase 1 — Architect
@@ -135,7 +135,42 @@ If validation fails, iterate until it passes.
 - Select.stories.tsx (updated)
 ```
 
-## Phase 4 — Senior Engineer
+## Phase 4 — DRY Auditor
+
+**Goal**: Eliminate duplication, enforce DS adoption, consolidate components before implementation.
+
+### Actions
+
+1. Review the component inventory from Design Engineer.
+2. Cross-reference with existing components across ALL apps and packages:
+   - Flag components with >50% structural overlap → propose consolidation.
+   - Flag custom HTML elements (`<button>`, `<input>`, `<h1>`–`<h6>`) that should use DS atoms.
+3. Scan existing hooks for similar logic across features → propose extraction.
+4. Scan CSS modules for repeated patterns → propose DS tokens or shared components.
+5. Run `bash tools/scripts/dry-audit.sh` and resolve all findings.
+6. Iterate with Design Engineer to create/extend DS components as needed.
+
+### Output — DRY Report
+
+```
+DRY Audit:
+  [PASS] No custom HTML bypassing DS atoms
+  [PASS] No duplicate component structures across apps
+  [PASS] No duplicate hooks across features
+  [PASS] No duplicate CSS patterns across modules
+  [PASS] All app components import from @guidy/ds
+  [PASS] dry-audit.sh — 0 violations
+```
+
+### Validation
+
+If ANY finding exists:
+
+- Work with Design Engineer to create/extend the DS component.
+- Refactor app code to use the DS component.
+- Re-run the audit until clean.
+
+## Phase 5 — Senior Engineer
 
 **Goal**: Implement the feature following all rules.
 
@@ -171,7 +206,7 @@ Implementation:
   [ ] No cross-feature deep imports
 ```
 
-## Phase 5 — QA
+## Phase 6 — QA
 
 **Goal**: Create tests for EVERYTHING. No exceptions. No omissions.
 
@@ -233,7 +268,7 @@ features/<name>/
 - Coverage thresholds must be met.
 - **"No Test, No Push"**: code without tests is incomplete and MUST NOT be pushed.
 
-## Phase 6 — Auditor
+## Phase 7 — Auditor
 
 **Goal**: Final validation before push.
 
@@ -275,7 +310,7 @@ If ANY check fails:
 - Re-run the audit after fixes.
 - Only push when ALL checks pass.
 
-## Phase 7 — DevOps
+## Phase 8 — DevOps
 
 **Goal**: Ensure CI/CD pipeline validates and deploys correctly.
 

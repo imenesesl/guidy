@@ -54,6 +54,9 @@ jobs:
       - name: Tests with coverage (80% threshold)
         run: pnpm test:coverage
 
+      - name: DRY audit (DS adoption, no custom HTML, no duplication)
+        run: pnpm dry-audit
+
       - name: Build core app
         run: pnpm build:core
 
