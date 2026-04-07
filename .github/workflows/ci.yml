@@ -1,4 +1,4 @@
-name: CI
+name: CI — Quality Gate
 
 on:
   pull_request:
@@ -9,8 +9,8 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  validate:
-    name: Lint → Stylelint → Typecheck → Test → Build → Storybook
+  quality-gate:
+    name: Lint · Test · Build
     runs-on: ubuntu-latest
 
     steps:
@@ -42,13 +42,13 @@ jobs:
       - name: ESLint (includes max-lines 150)
         run: pnpm -r --if-present run lint
 
-      - name: Stylelint (no hardcoded colors, spacing, sizing in CSS)
+      - name: Stylelint (no hardcoded values in CSS)
         run: pnpm lint:css
 
       - name: Typecheck
         run: pnpm typecheck
 
-      - name: Test
+      - name: Tests
         run: pnpm test
 
       - name: File size check (150 lines max)

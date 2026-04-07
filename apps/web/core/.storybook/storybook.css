@@ -1,0 +1,14 @@
+html,
+body {
+  background-color: #121212 !important;
+  margin: 0;
+  padding: 0;
+}
+
+.storybook-canvas {
+  background-color: #121212;
+  color: #ffffff;
+  font-family: 'Roboto', system-ui, sans-serif;
+  min-height: 100vh;
+  padding: 16px;
+}

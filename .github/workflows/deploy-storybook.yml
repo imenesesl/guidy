@@ -1,4 +1,4 @@
-name: Deploy Storybook to GitHub Pages
+name: Deploy Storybook
 
 on:
   push:
@@ -14,8 +14,8 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  build-and-deploy:
-    name: Build & Deploy Storybooks
+  deploy:
+    name: Build & Deploy to GitHub Pages
     runs-on: ubuntu-latest
 
     environment:
@@ -47,21 +47,6 @@ jobs:
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
-
-      - name: ESLint (includes max-lines 150)
-        run: pnpm -r --if-present run lint
-
-      - name: Stylelint (no hardcoded values in CSS)
-        run: pnpm lint:css
-
-      - name: Typecheck
-        run: pnpm typecheck
-
-      - name: Test
-        run: pnpm test
-
-      - name: Build core app
-        run: pnpm build:core
 
       - name: Build Storybook (DS)
         run: pnpm storybook:build:ds
