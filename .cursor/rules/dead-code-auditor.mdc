@@ -1,0 +1,98 @@
+---
+description: Dead Code Auditor — mandatory skill for ALL roles. Find and eliminate unused code, files, exports, dependencies, and dead weight.
+alwaysApply: true
+---
+
+# Dead Code Auditor
+
+This is NOT a role in the chain. This is a **mandatory skill that every role must exercise at all times**. Every time you touch code, you audit it. No exceptions.
+
+## Core Principle
+
+> If code is not used, it does not exist. Delete it.
+
+Commented-out code is not "saved for later". Unused imports are not "just in case". Dead files are not "we might need them". They are noise, confusion, and technical debt. Kill them.
+
+## What to Audit
+
+### 1. Unused Files
+
+- Components, hooks, utilities, styles, stories, or tests that are not imported anywhere.
+- Files that were replaced by newer implementations but never deleted.
+- Empty files or files with only exports that nobody imports.
+
+### 2. Unused Exports
+
+- Functions, types, constants, or components exported from a module but never imported by any consumer.
+- Re-exports in `index.ts` barrel files that point to things nobody uses.
+
+### 3. Unused Imports
+
+- Import statements at the top of a file that are not referenced in the code below.
+- Type imports that are not used in the file.
+
+### 4. Unused Dependencies
+
+- Packages in `package.json` (`dependencies` or `devDependencies`) that are not imported anywhere in the source code.
+- Packages that were replaced by alternatives but never removed.
+
+### 5. Dead Code
+
+- Functions or methods that are defined but never called.
+- Variables that are assigned but never read.
+- Unreachable code after `return`, `throw`, or `break`.
+- Feature flags or conditional blocks that are always true/false.
+- Commented-out code blocks.
+
+### 6. Orphaned Tests and Stories
+
+- Test files (`.test.tsx`, `.test.ts`) whose source file no longer exists.
+- Story files (`.stories.tsx`) whose component no longer exists.
+- Tests that test behavior that no longer exists in the component.
+
+### 7. Orphaned CSS Modules
+
+- `.module.css` files that are not imported by any component.
+- CSS classes defined in a module but not used by the component that imports it.
+
+### 8. Orphaned i18n Keys
+
+- Keys in `en.json` or `es.json` that are not referenced by any `t('key')` call.
+- Keys that were renamed but the old key was never removed.
+
+## When to Audit
+
+- **BEFORE finishing any task** — scan the files you touched and their neighbors.
+- **AFTER replacing a library or pattern** — the old code must die.
+- **AFTER renaming or moving** — the old references must die.
+- **AFTER any refactor** — check for orphans.
+- **When switching roles** — the incoming role audits the output of the previous role.
+
+## How to Audit
+
+1. **Search for imports** — if a file/export is not imported anywhere, it's dead.
+2. **Check barrel files** — `index.ts` re-exports must point to live code.
+3. **Grep for usage** — search the codebase for function/component/type names.
+4. **Check package.json** — every dependency must have at least one import.
+5. **Cross-reference i18n** — every key in locale JSONs must appear in a `t()` call.
+6. **Cross-reference CSS** — every class in a `.module.css` must appear in its component.
+
+## What to Do with Dead Code
+
+**Delete it.** Not comment it. Not add a TODO. Delete it.
+
+- Remove the file entirely if no exports are used.
+- Remove individual unused exports if some are still live.
+- Remove the dependency from `package.json` and run `pnpm install`.
+- Remove orphaned i18n keys from both locale files.
+- Remove orphaned CSS classes from the module.
+
+## Enforcement
+
+- TypeScript strict mode + `noUnusedLocals` + `noUnusedParameters` catches some of this.
+- ESLint `no-unused-vars`, `no-unused-imports` catches more.
+- But neither catches unused FILES, unused EXPORTS across modules, or orphaned i18n keys. That's YOUR job.
+
+## The Rule
+
+**Every role, every task, every PR: leave the codebase cleaner than you found it.**

@@ -1,0 +1,118 @@
+---
+description: Motion Designer role — animations, icons, and visual experience for Guidy
+alwaysApply: true
+---
+
+# Motion Designer Role
+
+The Motion Designer owns ALL animations, icons, transitions, and micro-interactions across Guidy. This role is an expert in two libraries:
+
+## Core Libraries
+
+### 1. Motion for React (`motion/react`)
+
+The primary animation library. Use Motion components for every animation.
+
+- **Entrance animations** — use `motion.div` with `initial` + `whileInView` for scroll reveals.
+- **Hover/tap** — use `whileHover`, `whileTap` on interactive elements.
+- **Layout animations** — use `layout` prop for smooth layout shifts.
+- **Exit animations** — wrap with `<AnimatePresence>` and use `exit` prop.
+- **Stagger** — use `variants` with `staggerChildren` for sequential reveals.
+- **Spring physics** — prefer `type: "spring"` for natural feel. Use `stiffness`, `damping`, `mass`.
+- **Scroll-linked** — use `useScroll` + `useTransform` for parallax and progress effects.
+- **Reduced motion** — use `useReducedMotion()` to respect user preferences.
+
+```tsx
+import { motion } from 'motion/react';
+
+<motion.div
+  initial={{ opacity: 0, y: 30 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  viewport={{ once: true, margin: '-50px' }}
+  transition={{ type: 'spring', stiffness: 100, damping: 20 }}
+/>
+```
+
+### 2. Lucide React (`lucide-react`)
+
+The icon library. Use Lucide for every icon.
+
+- Import only the icons you need (tree-shakeable).
+- Control size via `size` prop (number in pixels).
+- Control color via `color` prop or CSS `color` inheritance.
+- Wrap in `motion.div` to animate icons.
+- Browse icons at https://lucide.dev/icons/
+
+```tsx
+import { Rocket } from 'lucide-react';
+
+<motion.div whileHover={{ rotate: 15, scale: 1.1 }}>
+  <Rocket size={48} />
+</motion.div>
+```
+
+## Absolute Prohibitions
+
+- **NEVER use emojis** as icons, decorations, or visual elements.
+- **NEVER use image files** for icons or illustrations (PNG, SVG files, etc.).
+- **NEVER write raw CSS animations** (`@keyframes`, `animation:`, `transition:` in CSS modules) — use Motion components instead.
+- **NEVER use other icon libraries** (FontAwesome, Heroicons, Material Icons) — only Lucide.
+
+## Animation Patterns
+
+### Scroll Reveal (sections)
+
+```tsx
+<motion.section
+  initial={{ opacity: 0, y: 40 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  viewport={{ once: true }}
+  transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+>
+```
+
+### Staggered Children (grids, lists)
+
+```tsx
+const container = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.15 } },
+};
+const item = {
+  hidden: { opacity: 0, y: 20 },
+  show: { opacity: 1, y: 0 },
+};
+
+<motion.div variants={container} initial="hidden" whileInView="show" viewport={{ once: true }}>
+  {items.map(i => <motion.div key={i} variants={item} />)}
+</motion.div>
+```
+
+### Interactive Cards
+
+```tsx
+<motion.div
+  whileHover={{ y: -8, scale: 1.02 }}
+  whileTap={{ scale: 0.98 }}
+  transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+>
+```
+
+### Icon Animation
+
+```tsx
+<motion.div
+  animate={{ y: [0, -8, 0] }}
+  transition={{ repeat: Infinity, duration: 2, ease: 'easeInOut' }}
+>
+  <Rocket size={64} />
+</motion.div>
+```
+
+## Visual Personality
+
+- **Warm and rounded** — soft shapes, generous radii.
+- **Colorful but not loud** — accent colors as highlights, not fills.
+- **Alive** — subtle floating, bouncing, breathing makes the page organic.
+- **Trustworthy** — clean, consistent, no visual noise.
+- **Playful springs** — prefer spring transitions with slight overshoot for a fun feel.

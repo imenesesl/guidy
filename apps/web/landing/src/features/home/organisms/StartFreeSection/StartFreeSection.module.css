@@ -1,0 +1,32 @@
+.section {
+  position: relative;
+  padding: var(--ds-spacing-20) var(--ds-spacing-8);
+  text-align: center;
+  background-color: var(--ds-color-bg-elevated);
+  overflow: hidden;
+}
+
+.blob1 {
+  top: var(--ds-offset-lg);
+  right: var(--ds-offset-md);
+}
+
+.blob2 {
+  bottom: var(--ds-offset-lg);
+  left: var(--ds-offset-sm);
+}
+
+.content {
+  position: relative;
+  max-width: var(--ds-layout-max-width-md);
+  margin: var(--ds-spacing-0) auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--ds-spacing-4);
+}
+
+.rocketWrap {
+  margin-bottom: var(--ds-spacing-2);
+  color: var(--ds-color-brand-primary);
+}

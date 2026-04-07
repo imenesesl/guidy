@@ -1,0 +1,59 @@
+.hero {
+  position: relative;
+  min-height: var(--ds-layout-hero-min-height);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--ds-spacing-16) var(--ds-spacing-8);
+  overflow: hidden;
+}
+
+.blob1 {
+  top: var(--ds-offset-sm);
+  right: var(--ds-offset-md);
+}
+
+.blob2 {
+  bottom: var(--ds-offset-md);
+  left: var(--ds-offset-sm);
+}
+
+.inner {
+  position: relative;
+  max-width: var(--ds-layout-max-width-lg);
+  width: var(--ds-size-full);
+  display: flex;
+  align-items: center;
+  gap: var(--ds-spacing-12);
+}
+
+.textCol {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-spacing-4);
+}
+
+.title {
+  font-family: var(--ds-font-family-sans);
+  font-size: var(--ds-font-size-5xl);
+  font-weight: var(--ds-font-weight-black);
+  line-height: var(--ds-line-height-tight);
+  letter-spacing: var(--ds-letter-spacing-tight);
+  color: var(--ds-color-text-primary);
+  margin: var(--ds-spacing-0);
+}
+
+.ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--ds-spacing-3);
+  margin-top: var(--ds-spacing-4);
+}
+
+.illustrationCol {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

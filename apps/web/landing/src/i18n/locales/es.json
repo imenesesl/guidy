@@ -1,7 +1,46 @@
 {
-  "home": {
-    "title": "Bienvenido a Guidy",
-    "subtitle": "Tu landing page está lista",
-    "cta": "Comenzar"
+  "header": {
+    "login": "Entrar",
+    "change_lang": "Cambiar idioma"
+  },
+  "hero": {
+    "title": "Tu clase, pero con superpoderes",
+    "subtitle": "Tus alumnos aprenden de verdad. Tu dejas de revisar tarea hasta las 2am.",
+    "cta_teacher": "Soy profe",
+    "cta_institution": "Soy escuela",
+    "cta_interested": "Contame mas"
+  },
+  "features": {
+    "heading": "Asi funciona la magia",
+    "variations_title": "Cada alumno, su propia version",
+    "variations_desc": "Generamos versiones unicas de cada tarea. Copiar ya no sirve (sorry not sorry).",
+    "guided_title": "Ayuda que te hace pensar",
+    "guided_desc": "Nada de darte la respuesta. Te guiamos con pistas para que llegues solo. Como un buen profe, pero con paciencia infinita.",
+    "insights_title": "Tu clase, de un vistazo",
+    "insights_desc": "Quien va bien, quien necesita una mano, que tema cuesta mas. Todo clarito, sin revisar tarea por tarea."
+  },
+  "benefits": {
+    "heading": "Todos ganan. En serio.",
+    "teacher_title": "Si eres profe...",
+    "teacher_1": "Chao a las noches revisando tarea",
+    "teacher_2": "Sabes exactamente donde reforzar",
+    "teacher_3": "Distingues quien entiende de quien copia",
+    "student_title": "Si eres estudiante...",
+    "student_1": "Aprendes a tu ritmo, sin presion",
+    "student_2": "Pides ayuda sin que nadie te juzgue",
+    "student_3": "Sientes que de verdad entiendes",
+    "institution_title": "Si eres escuela...",
+    "institution_1": "Resultados reales, no solo notas bonitas",
+    "institution_2": "Datos claros por grupo y por tema",
+    "institution_3": "Lo montas en dias, no en meses"
+  },
+  "startFree": {
+    "heading": "Dale, es gratis",
+    "description": "Gratis gratis. De verdad. Sin trucos. Tu primera tarea lista en 5 minutos.",
+    "cta": "Vamos"
+  },
+  "footer": {
+    "tagline": "Hecho con cariño para quienes ensenan y aprenden.",
+    "copyright": "2026 Guidy. Todos los derechos reservados."
   }
 }

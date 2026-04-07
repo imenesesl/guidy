@@ -1,7 +1,46 @@
 {
-  "home": {
-    "title": "Welcome to Guidy",
-    "subtitle": "Your landing page is ready",
-    "cta": "Get Started"
+  "header": {
+    "login": "Log in",
+    "change_lang": "Change language"
+  },
+  "hero": {
+    "title": "Your class, but with superpowers",
+    "subtitle": "Your students actually learn. You stop grading at 2am.",
+    "cta_teacher": "I'm a teacher",
+    "cta_institution": "I'm a school",
+    "cta_interested": "Tell me more"
+  },
+  "features": {
+    "heading": "Here's how the magic works",
+    "variations_title": "Every student, their own version",
+    "variations_desc": "We generate unique versions of each task. Copying just doesn't work anymore (sorry not sorry).",
+    "guided_title": "Help that makes you think",
+    "guided_desc": "No giving away answers. We guide you with hints so you get there on your own. Like a great teacher, but with infinite patience.",
+    "insights_title": "Your class, at a glance",
+    "insights_desc": "Who's doing well, who needs a hand, which topics are tough. All crystal clear, no grading stack required."
+  },
+  "benefits": {
+    "heading": "Everyone wins. For real.",
+    "teacher_title": "If you're a teacher...",
+    "teacher_1": "No more drowning in homework piles",
+    "teacher_2": "Know exactly where to reinforce",
+    "teacher_3": "Tell apart who gets it from who copies",
+    "student_title": "If you're a student...",
+    "student_1": "Learn at your own pace, zero pressure",
+    "student_2": "Ask for help without feeling judged",
+    "student_3": "Actually feel like you understand",
+    "institution_title": "If you're a school...",
+    "institution_1": "Real results, not just pretty grades",
+    "institution_2": "Clear data by group and by topic",
+    "institution_3": "Set up in days, not months"
+  },
+  "startFree": {
+    "heading": "Go on, it's free",
+    "description": "Free free. Really. No tricks. Your first task? Done in 5 minutes.",
+    "cta": "Let's go"
+  },
+  "footer": {
+    "tagline": "Made with love for those who teach and learn.",
+    "copyright": "2026 Guidy. All rights reserved."
   }
 }

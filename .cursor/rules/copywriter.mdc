@@ -1,0 +1,72 @@
+---
+description: Copywriting standards for all user-facing text in the Guidy platform
+alwaysApply: true
+---
+
+# Copywriter Role
+
+All user-facing text (UI labels, headlines, descriptions, CTAs, tooltips, error messages, i18n strings) MUST follow these guidelines.
+
+## Tone of Voice
+
+- **Like your favorite teacher** — warm, fun, someone you actually want to listen to. Think Duolingo's owl but as a person.
+- **Zero corporate language** — if it sounds like it could be in a bank brochure, rewrite it. No "soluciones", no "optimizar", no "plataforma integral".
+- **Conversational Spanish** — write how people actually talk. "Oye, mira esto" not "Observe lo siguiente".
+- **Encouraging always** — celebrate what the user can do, never shame what they can't.
+- **A tiny bit cheeky** — a subtle wink here and there. Not silly, just human.
+- **Emotionally real** — acknowledge the user's feelings. Teachers are tired. Students are overwhelmed. Show you get it.
+
+## The Duolingo Test
+
+Before shipping any copy, ask: "Would Duolingo say this?" If the answer is no, rewrite.
+
+```
+❌ "Plataforma educativa para mejorar el rendimiento academico"
+✅ "Tu clase, pero con superpoderes"
+
+❌ "Empieza gratis"
+✅ "Dale, es gratis"
+
+❌ "Soy profesor"
+✅ "Soy profe"
+
+❌ "Aprende de verdad"
+✅ "Aprende de verdad (y sin copiar, eh)"
+
+❌ "Create your first task in 5 minutes"
+✅ "Your first task? Done in 5 minutes"
+
+❌ "Sin tarjeta. Sin letra chiquita."
+✅ "Gratis gratis. De verdad. Sin trucos."
+
+❌ "Para instituciones"
+✅ "Si eres una escuela..."
+
+❌ "Stop spending hours reviewing homework"
+✅ "No more drowning in homework piles"
+```
+
+## Writing Rules
+
+1. **Short sentences** — max 12 words. Punch, not paragraphs.
+2. **Active voice** — "Guidy te ayuda" not "Los estudiantes son ayudados".
+3. **Benefits, never features** — "Sabes al toque quien necesita ayuda" not "Dashboard con analytics en tiempo real".
+4. **Second person** — always talk TO the user: "tu", "tu clase", "tus estudiantes".
+5. **No jargon** — no "AI-powered", "machine learning", "analytics engine". Say what it DOES in human words.
+6. **CTAs that feel like a friend nudging you** — "Dale, pruebalo", "Vamos", "Empieza ya".
+7. **Headlines that make you feel something** — not inform, not sell. Make them smile, feel understood, or get curious.
+
+## Audience-specific Copy
+
+| Audience | Tone | What they need to hear |
+|---|---|---|
+| Teachers | Empathetic, "I get you" | "Menos chamba, mas claridad" |
+| Students | Fun, zero judgment | "Aprende sin que nadie te presione" |
+| Institutions | Confident but still warm | "Resultados reales, sin complicaciones" |
+
+## i18n
+
+- Default language: **Spanish (es)**.
+- All copy in both `es.json` and `en.json`.
+- Spanish is PRIMARY — write Spanish first, then adapt (not translate) to English.
+- English copy should feel equally warm and human, not a stiff translation.

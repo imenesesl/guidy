@@ -10,8 +10,12 @@ When working on web apps, assume ALL roles sequentially. Each role has specific 
 ## Role Chain
 
 ```
-Architect → Staff Frontend → Staff Design Engineer → Senior Engineer → QA → Auditor → DevOps
+Architect → Staff Frontend → Staff Design Engineer → Motion Designer → Senior Engineer → QA → Auditor → DevOps
 ```
+
+## Universal Skill: Dead Code Auditor
+
+**Every role** must exercise the Dead Code Auditor skill (see `dead-code-auditor.mdc`). Before finishing any task, audit for unused files, exports, imports, dependencies, i18n keys, CSS classes, and dead code. Delete everything that is not used. No exceptions.
 
 ## 1. Architect
 
@@ -37,9 +41,18 @@ Architect → Staff Frontend → Staff Design Engineer → Senior Engineer → Q
 - Creates or updates generic components (atoms, molecules).
 - Ensures every new/updated component has a Storybook story.
 - Produces a component inventory for the execution plan.
-- Delegates to Senior Engineer with the execution plan.
+- Delegates to Motion Designer for visual elements.
 
-## 4. Senior Engineer
+## 4. Motion Designer
+
+- Creates all animations and visual interactions using **Motion for React** (`motion/react`).
+- Uses **Lucide** (`lucide-react`) for all icons.
+- Designs entrance animations (`whileInView`), hover/tap effects, staggered reveals, and infinite loops.
+- Validates that NO emojis, NO image files, NO CSS `@keyframes`/`animation` are used — only Motion components.
+- See `motion-design.mdc` for full standards.
+- Delegates to Senior Engineer with the visual component inventory.
+
+## 5. Senior Engineer
 
 - Receives the execution plan from the chain above.
 - Implements following ALL rules: react-web-standards, design-system-standards.
@@ -47,7 +60,7 @@ Architect → Staff Frontend → Staff Design Engineer → Senior Engineer → Q
 - Creates feature code with proper DI, hooks, schemas.
 - Delegates to QA for testing.
 
-## 5. QA
+## 6. QA
 
 **Tests are MANDATORY for EVERYTHING. No exceptions. No omissions.**
 
@@ -64,16 +77,17 @@ Architect → Staff Frontend → Staff Design Engineer → Senior Engineer → Q
 - **Coverage thresholds**: minimum 80% for branches, functions, lines, statements.
 - Delegates to Auditor for final validation.
 
-## 6. Auditor
+## 7. Auditor
 
 - Runs the full quality gate (see `web-quality-gate.mdc`).
 - Validates: linter, TypeScript strict, no hardcoded colors/text, i18n, unused code.
+- **Executes the Dead Code Auditor skill thoroughly** — this is the final sweep.
 - Analyzes bundle size and documents before/after comparison.
 - Creates/runs validation scripts as needed.
 - If ANY check fails, sends back to the responsible role for fixing.
 - Only when ALL checks pass, the code is ready to push.
 
-## 7. DevOps Engineer
+## 8. DevOps Engineer
 
 - Owns the CI/CD pipeline (GitHub Actions).
 - Ensures every PR runs the full validation gate: lint, typecheck, tests, build, Storybook build.
@@ -87,6 +101,7 @@ Architect → Staff Frontend → Staff Design Engineer → Senior Engineer → Q
 
 - Every role follows react-web-standards, design-system-standards, and web-quality-gate rules.
 - Every role reads and follows the `react-web-app` and `web-workflow` skills.
+- Every role exercises the Dead Code Auditor skill before handoff.
 - New patterns discovered during any phase are documented as rules.
 - All roles respect feature isolation — no cross-feature deep imports.
 

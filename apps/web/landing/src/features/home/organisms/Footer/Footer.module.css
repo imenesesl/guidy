@@ -1,0 +1,14 @@
+.footer {
+  padding: var(--ds-spacing-8);
+}
+
+.inner {
+  max-width: var(--ds-layout-max-width-md);
+  margin: var(--ds-spacing-0) auto;
+  padding-top: var(--ds-spacing-6);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--ds-spacing-2);
+  text-align: center;
+}

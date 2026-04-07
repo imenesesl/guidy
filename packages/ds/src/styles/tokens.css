@@ -32,8 +32,14 @@
   --ds-color-status-warning: #FFA42B;
   --ds-color-status-info: #2E77D0;
 
+  /* Accents — illustration & decoration */
+  --ds-color-accent-blue: #4ECDC4;
+  --ds-color-accent-purple: #A78BFA;
+  --ds-color-accent-yellow: #FBBF24;
+  --ds-color-accent-pink: #F472B6;
+
   /* Typography */
-  --ds-font-family-sans: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --ds-font-family-sans: 'Google Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --ds-font-family-mono: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
 
   --ds-font-size-xs: 0.75rem;
@@ -93,7 +99,9 @@
   --ds-easing-default: cubic-bezier(0.3, 0, 0, 1);
 
   /* Opacity */
+  --ds-opacity-0: 0;
   --ds-opacity-disabled: 0.5;
+  --ds-opacity-full: 1;
 
   /* Border widths */
   --ds-border-width-thin: 1px;
@@ -125,8 +133,21 @@
   --ds-size-search-default: 240px;
   --ds-size-icon-search: 16px;
 
+  /* Illustration sizes */
+  --ds-size-illustration-sm: 4rem;
+  --ds-size-illustration-md: 6rem;
+  --ds-size-illustration-lg: 10rem;
+  --ds-size-illustration-xl: 16rem;
+
+  /* Decorative offsets (for blob/illustration positioning) */
+  --ds-offset-sm: -5%;
+  --ds-offset-md: -10%;
+  --ds-offset-lg: -15%;
+
   /* Layout */
+  --ds-layout-hero-min-height: 80vh;
   --ds-layout-max-width-md: 800px;
+  --ds-layout-max-width-lg: 1100px;
   --ds-layout-grid-min-col: 300px;
   --ds-layout-font-base: 16px;
 }

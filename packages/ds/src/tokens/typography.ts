@@ -4,7 +4,7 @@
  * Keep in sync with CSS custom properties (--ds-*).
  */
 export const fontFamily = {
-  sans: "'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
+  sans: "'Google Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
   mono: "'JetBrains Mono', 'Fira Code', 'Consolas', monospace",
 } as const;
 

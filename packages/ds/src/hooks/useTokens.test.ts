@@ -29,6 +29,6 @@ describe('useTokens', () => {
 
   it('contains font families', () => {
     const { fontFamily } = useTokens();
-    expect(fontFamily.sans).toContain('Roboto');
+    expect(fontFamily.sans).toContain('Google Sans');
   });
 });

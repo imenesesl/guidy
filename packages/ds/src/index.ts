@@ -30,6 +30,12 @@ export type { DividerProps } from './atoms/Divider';
 export { Spinner } from './atoms/Spinner';
 export type { SpinnerProps, SpinnerSize } from './atoms/Spinner';
 
+export { Blob } from './atoms/Blob';
+export type { BlobProps, BlobVariant, BlobColor } from './atoms/Blob';
+
+export { WavesDivider } from './atoms/WavesDivider';
+export type { WavesDividerProps, WavesDividerVariant } from './atoms/WavesDivider';
+
 // Molecules
 export { Card } from './molecules/Card';
 export type { CardProps, CardVariant } from './molecules/Card';

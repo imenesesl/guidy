@@ -1,28 +1,35 @@
 import { render, screen } from '@testing-library/react';
 import { describe, it, expect } from 'vitest';
-import '@i18n/index';
 import { HomePage } from './HomePage';
 
 describe('HomePage', () => {
-  it('renders welcome title', () => {
+  it('renders the header brand', () => {
     render(<HomePage />);
-    expect(screen.getByText('Welcome to Guidy')).toBeInTheDocument();
+    expect(screen.getByText('Guidy')).toBeInTheDocument();
   });
 
-  it('renders subtitle', () => {
+  it('renders the hero title', () => {
     render(<HomePage />);
-    expect(screen.getByText('Your landing page is ready')).toBeInTheDocument();
+    expect(screen.getByText('Your class, but with superpowers')).toBeInTheDocument();
   });
 
-  it('renders CTA button', () => {
+  it('renders the features section', () => {
     render(<HomePage />);
-    expect(screen.getByText('Get Started')).toBeInTheDocument();
+    expect(screen.getByText("Here's how the magic works")).toBeInTheDocument();
   });
 
-  it('renders feature cards', () => {
+  it('renders the benefits section', () => {
     render(<HomePage />);
-    expect(screen.getByText('Fast')).toBeInTheDocument();
-    expect(screen.getByText('Type-safe')).toBeInTheDocument();
-    expect(screen.getByText('Scalable')).toBeInTheDocument();
+    expect(screen.getByText('Everyone wins. For real.')).toBeInTheDocument();
+  });
+
+  it('renders the start free section', () => {
+    render(<HomePage />);
+    expect(screen.getByText("Go on, it's free")).toBeInTheDocument();
+  });
+
+  it('renders the footer', () => {
+    render(<HomePage />);
+    expect(screen.getByText(/2026 Guidy/)).toBeInTheDocument();
   });
 });

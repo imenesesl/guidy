@@ -84,6 +84,8 @@
     "**/reset.css",
     "**/node_modules/**",
     "**/storybook-static/**",
-    "**/dist/**"
+    "**/dist/**",
+    "**/Blob/**",
+    "**/WavesDivider/**"
   ]
 }
