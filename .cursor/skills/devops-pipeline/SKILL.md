@@ -39,46 +39,44 @@ Create `.github/workflows/ci.yml`:
   6. `pnpm lint` — all packages and apps.
   7. `pnpm typecheck` — all packages and apps.
   8. `pnpm test` — all packages and apps.
-  9. `pnpm build:core` — build the app.
-  10. `pnpm storybook:build` — build all Storybooks.
+  9. `pnpm build:core` — build core app.
+  10. `pnpm build:landing` — build landing app.
+  11. `pnpm storybook:build` — build all Storybooks.
 
-### 3. Create Storybook Deploy Workflow
+### 3. Create GitHub Pages Deploy Workflow
 
-Create `.github/workflows/deploy-storybook.yml`:
+Create `.github/workflows/deploy-gh-pages.yml`:
 
 - **Trigger**: `push` to `main`.
 - **Steps**:
-  1. Full CI validation (same as above).
-  2. Build DS Storybook → `packages/ds/storybook-static`.
-  3. Build Core Storybook → `apps/web/core/storybook-static`.
-  4. Assemble combined output:
-     ```
-     deploy/
-     ├── index.html   # landing page
-     ├── ds/          # copy of DS storybook-static
-     └── core/        # copy of Core storybook-static
-     ```
-  5. Deploy to GitHub Pages using `peaceiris/actions-gh-pages@v4`.
+  1. Install dependencies.
+  2. Run `bash tools/scripts/assemble-gh-pages.sh deploy` (builds apps, storybooks, assembles output).
+  3. Deploy to GitHub Pages using `actions/deploy-pages@v4`.
 
-### 4. Create Landing Page
+The assembly script (`tools/scripts/assemble-gh-pages.sh`) is reusable and can be run locally to verify the deploy structure. It accepts an optional output directory argument (defaults to `deploy`).
 
-Create a simple `index.html` that links to each Storybook:
+Output structure:
 
-```html
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>Guidy Storybooks</title>
-  </head>
-  <body>
-    <h1>Guidy Design System</h1>
-    <ul>
-      <li><a href="./ds/">Design System (DS)</a></li>
-      <li><a href="./core/">Core App Components</a></li>
-    </ul>
-  </body>
-</html>
 ```
+deploy/
+├── index.html              # Hub page (apps left, storybooks right)
+├── apps/
+│   ├── core/               # Core app build
+│   └── landing/            # Landing app build
+└── storybook/
+    ├── ds/                 # DS Storybook
+    ├── core/               # Core app Storybook
+    └── landing/            # Landing Storybook
+```
+
+### 4. Hub Page
+
+The hub page at `.github/pages/index.html` provides a two-column layout:
+
+- **Left column**: Live app deployments (Landing, Core).
+- **Right column**: Storybook instances (DS, Core Stories, Landing Stories).
+
+The page uses dark theme, Google Sans font, card-based navigation with hover effects.
 
 ### 5. Add New Apps to Pipeline
 
@@ -111,7 +109,7 @@ Before considering the DevOps setup complete:
 
 ```
 [ ] .github/workflows/ci.yml exists and runs on PRs
-[ ] .github/workflows/deploy-storybook.yml exists and runs on push to main
+[ ] .github/workflows/deploy-gh-pages.yml exists and runs on push to main
 [ ] All lint, typecheck, test, build, storybook:build steps present
 [ ] pnpm install uses --frozen-lockfile in CI
 [ ] Node.js version read from .nvmrc

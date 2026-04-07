@@ -1,4 +1,4 @@
-name: Deploy Storybook
+name: Deploy to GitHub Pages
 
 on:
   push:
@@ -10,7 +10,7 @@ permissions:
   id-token: write
 
 concurrency:
-  group: deploy-storybook
+  group: deploy-gh-pages
   cancel-in-progress: true
 
 jobs:
@@ -48,22 +48,8 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Build Storybook (DS)
-        run: pnpm storybook:build:ds
-
-      - name: Build Storybook (Core)
-        run: pnpm storybook:build:core
-
-      - name: Build Storybook (Landing)
-        run: pnpm storybook:build:landing
-
-      - name: Assemble deployment
-        run: |
-          mkdir -p deploy/ds deploy/core deploy/landing
-          cp -r packages/ds/storybook-static/* deploy/ds/
-          cp -r apps/web/core/storybook-static/* deploy/core/
-          cp -r apps/web/landing/storybook-static/* deploy/landing/
-          cp .github/pages/index.html deploy/index.html
+      - name: Build & assemble
+        run: bash tools/scripts/assemble-gh-pages.sh deploy
 
       - name: Setup Pages
         uses: actions/configure-pages@v5

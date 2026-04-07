@@ -29,10 +29,11 @@ Validation Steps:
   2. Lint                     — pnpm lint (all packages + apps)
   3. Typecheck                — pnpm typecheck (all packages + apps)
   4. Unit & integration tests — pnpm test (all packages + apps)
-  5. Build apps               — pnpm build:core (and any other app builds)
+  5. Build apps               — pnpm build:core && pnpm build:landing
   6. Build Storybook (DS)     — pnpm storybook:build:ds
   7. Build Storybook (Core)   — pnpm storybook:build:core
-  8. Bundle analysis           — compare bundle size vs main branch
+  8. Build Storybook (Landing) — pnpm storybook:build:landing
+  9. Bundle analysis           — compare bundle size vs main branch
 ```
 
 ### Deployment Pipeline (on merge to main)
@@ -41,26 +42,31 @@ After merging to `main`, additional steps deploy artifacts:
 
 ```
 Deployment Steps:
-  1. Run full validation pipeline above
-  2. Build all Storybooks
-  3. Deploy combined Storybook to GitHub Pages
+  1. Build all apps (core, landing)
+  2. Build all Storybooks (DS, core, landing)
+  3. Assemble and deploy to GitHub Pages
 ```
 
-## Storybook Deployment — GitHub Pages
+## GitHub Pages Deployment
 
-- Storybooks are deployed to GitHub Pages on every merge to `main`.
-- The DS Storybook and each app Storybook are built and combined into a single static site.
+Apps and Storybooks are deployed to GitHub Pages on every merge to `main`. The deployment uses `actions/deploy-pages@v4` with Pages artifact upload.
+
 - Output structure:
 
 ```
-gh-pages/
-├── index.html         # landing page with links to each Storybook
-├── ds/                # DS Storybook
-└── core/              # Core app Storybook
+deploy/
+├── index.html              # Hub page (apps left, storybooks right)
+├── apps/
+│   ├── core/               # Core app (built with rspack)
+│   └── landing/            # Landing app (built with rspack)
+└── storybook/
+    ├── ds/                 # DS Storybook
+    ├── core/               # Core app Storybook
+    └── landing/            # Landing Storybook
 ```
 
-- The deployment uses `peaceiris/actions-gh-pages` or equivalent action.
-- GitHub Pages must be configured to serve from the `gh-pages` branch.
+- Apps require `output.publicPath: 'auto'` in their rspack config to load assets correctly from sub-paths.
+- The hub page at `index.html` links to all apps and storybooks.
 
 ## Storybook Rules
 

@@ -21,6 +21,7 @@
     "storybook:build:core": "pnpm --filter @guidy/core storybook:build",
     "storybook:build:landing": "pnpm --filter @guidy/landing storybook:build",
     "storybook:build": "pnpm storybook:build:ds && pnpm storybook:build:core && pnpm storybook:build:landing",
+    "assemble:gh-pages": "bash tools/scripts/assemble-gh-pages.sh",
     "quality-gate": "bash tools/scripts/audit.sh",
     "prepare": "husky"
   },

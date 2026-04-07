@@ -295,7 +295,7 @@ If ANY check fails:
 ```
 CI/CD Status:
   [PASS] ci.yml — all steps configured
-  [PASS] deploy-storybook.yml — deployment configured
+  [PASS] deploy-gh-pages.yml — deployment configured
   [PASS] New targets included in pipeline
   [PASS] Labels applied to PR
 

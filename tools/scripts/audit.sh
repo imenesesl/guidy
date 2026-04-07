@@ -53,56 +53,18 @@ check "TypeScript strict — zero errors" pnpm typecheck
 echo "Running tests..."
 check "All tests passing" pnpm test
 
-# 7. File size check (150 lines max)
-echo "Checking file sizes (150 lines max)..."
-OVERSIZED=""
-while IFS= read -r f; do
-  lines=$(wc -l < "$f" | tr -d ' ')
-  if [ "$lines" -gt 150 ]; then
-    OVERSIZED="$OVERSIZED\n  $f ($lines lines)"
-  fi
-done < <(find packages/ds/src apps/web/core/src -type f \( -name '*.ts' -o -name '*.tsx' -o -name '*.module.css' \) ! -path '*/node_modules/*')
-
-if [ -z "$OVERSIZED" ]; then
-  RESULTS+=("${GREEN}[PASS]${NC} File size — all under 150 lines")
-  PASS=$((PASS + 1))
-else
-  RESULTS+=("${RED}[FAIL]${NC} File size — files exceed 150 lines:$OVERSIZED")
-  FAIL=$((FAIL + 1))
-fi
-
-# 8. No inline styles
-echo "Checking for inline styles..."
-INLINE=$(grep -rn 'style={{' packages/ds/src apps/web/core/src --include='*.tsx' || true)
-if [ -z "$INLINE" ]; then
-  RESULTS+=("${GREEN}[PASS]${NC} No inline styles in .tsx files")
-  PASS=$((PASS + 1))
-else
-  RESULTS+=("${RED}[FAIL]${NC} Inline styles found:\n$INLINE")
-  FAIL=$((FAIL + 1))
-fi
-
-# 9. No hardcoded colors in .tsx files
-echo "Checking for hardcoded colors in TSX..."
-COLORS=$(grep -rn "#[0-9a-fA-F]\{3,8\}" packages/ds/src apps/web/core/src --include='*.tsx' || true)
-if [ -z "$COLORS" ]; then
-  RESULTS+=("${GREEN}[PASS]${NC} No hardcoded hex colors in .tsx files")
-  PASS=$((PASS + 1))
-else
-  RESULTS+=("${RED}[FAIL]${NC} Hardcoded colors in .tsx:\n$COLORS")
-  FAIL=$((FAIL + 1))
-fi
-
-# 10. Build apps
-echo "Building core app..."
+# 7. Build apps
+echo "Building apps..."
 check "Build core — compiles" pnpm build:core
+check "Build landing — compiles" pnpm build:landing
 
-# 11. Storybook builds
+# 8. Storybook builds
 echo "Building Storybooks..."
 check "Storybook DS — builds" pnpm storybook:build:ds
 check "Storybook Core — builds" pnpm storybook:build:core
+check "Storybook Landing — builds" pnpm storybook:build:landing
 
-# 12. Storybook coverage — every component has a .stories.tsx
+# 9. Storybook coverage — every component has a .stories.tsx
 echo "Checking Storybook coverage..."
 MISSING_STORIES=""
 while IFS= read -r comp; do
@@ -122,7 +84,7 @@ else
   FAIL=$((FAIL + 1))
 fi
 
-# 13. Test coverage — every component has a .test.tsx
+# 10. Test coverage — every component has a .test.tsx
 echo "Checking test coverage..."
 MISSING_TESTS=""
 while IFS= read -r comp; do

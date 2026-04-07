@@ -42,7 +42,7 @@ jobs:
       - name: Prettier format check
         run: pnpm format:check
 
-      - name: ESLint (includes max-lines 150)
+      - name: ESLint (max-lines, no inline styles)
         run: pnpm -r --if-present run lint
 
       - name: Stylelint (no hardcoded values in CSS)
@@ -53,25 +53,6 @@ jobs:
 
       - name: Tests with coverage (80% threshold)
         run: pnpm test:coverage
-
-      - name: File size check (150 lines max)
-        run: |
-          FAIL=0
-          while IFS= read -r f; do
-            lines=$(wc -l < "$f" | tr -d ' ')
-            if [ "$lines" -gt 150 ]; then
-              echo "::error file=$f::File exceeds 150 lines ($lines lines)"
-              FAIL=1
-            fi
-          done < <(find packages/ds/src apps/web/core/src -type f \( -name '*.ts' -o -name '*.tsx' -o -name '*.module.css' \) ! -path '*/node_modules/*')
-          exit $FAIL
-
-      - name: No inline styles check
-        run: |
-          if grep -rn 'style={{' packages/ds/src apps/web/core/src --include='*.tsx'; then
-            echo "::error::Inline styles found. Use className with CSS Modules instead."
-            exit 1
-          fi
 
       - name: Build core app
         run: pnpm build:core
