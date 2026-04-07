@@ -3,5 +3,10 @@
     "title": "Welcome to Guidy",
     "subtitle": "Your monorepo is ready",
     "cta": "Get Started"
+  },
+  "error": {
+    "title": "Something went wrong",
+    "fallback": "An unexpected error occurred",
+    "retry": "Try again"
   }
 }

@@ -1,6 +1,7 @@
 import { Component } from 'react';
 import type { ErrorInfo, ReactNode } from 'react';
 import { Text, Button, Card } from '@guidy/ds';
+import { i18n } from '@i18n/index';
 import styles from './ErrorBoundary.module.css';
 
 interface ErrorBoundaryProps {
@@ -44,12 +45,12 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
       <div className={styles['container']}>
         <Card variant="elevated">
           <div className={styles['content']}>
-            <Text variant="heading-4">Something went wrong</Text>
+            <Text variant="heading-4">{i18n.t('error.title')}</Text>
             <Text variant="body-small" color="secondary">
-              {this.state.error?.message ?? 'An unexpected error occurred'}
+              {this.state.error?.message ?? i18n.t('error.fallback')}
             </Text>
             <Button variant="primary" onClick={this.handleReset}>
-              Try again
+              {i18n.t('error.retry')}
             </Button>
           </div>
         </Card>

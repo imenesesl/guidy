@@ -42,5 +42,10 @@
   "footer": {
     "tagline": "Hecho con cariño para quienes ensenan y aprenden.",
     "copyright": "2026 Guidy. Todos los derechos reservados."
+  },
+  "error": {
+    "title": "Algo salio mal",
+    "fallback": "Ocurrio un error inesperado",
+    "retry": "Intentar de nuevo"
   }
 }

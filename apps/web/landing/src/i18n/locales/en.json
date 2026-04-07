@@ -42,5 +42,10 @@
   "footer": {
     "tagline": "Made with love for those who teach and learn.",
     "copyright": "2026 Guidy. All rights reserved."
+  },
+  "error": {
+    "title": "Something went wrong",
+    "fallback": "An unexpected error occurred",
+    "retry": "Try again"
   }
 }
