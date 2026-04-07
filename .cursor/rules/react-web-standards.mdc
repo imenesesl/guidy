@@ -6,6 +6,17 @@ alwaysApply: false
 
 # React Web Standards
 
+## Required Versions & Tooling
+
+- **Node.js 22** — enforced via `.nvmrc` at the repo root. All packages and apps use this version.
+- **pnpm** — always use `pnpm`. NEVER use `npm` or `yarn`. Commands: `pnpm add`, `pnpm install`, `pnpm run`, `pnpm --filter`.
+- **React 19** (latest) — always use the latest React 19.x release. Never use React 18 or older.
+- **ESLint 10** (latest) — always use ESLint 10.x with `@eslint/js` 10.x and flat config.
+- **TypeScript strict** — latest 5.x with `strict: true`.
+
+When creating or updating a web app, verify these versions in `package.json`. If outdated, update them.
+Workspace dependencies use `"workspace:*"` protocol in `package.json`.
+
 ## TypeScript
 
 - **NEVER use `any`**. Use `unknown`, generics, or proper types. If a type is truly unknown, narrow it.
@@ -40,26 +51,153 @@ feature/
 - Organisms can consume hooks and context.
 - Pages are the only layer that wires routes, data fetching, and orchestration.
 
-## Component Rules
+## File Size Limit — 150 Lines Max
 
-- Components must be small, single-responsibility, and reusable.
-- Max ~80 lines per component file. If larger, extract sub-components.
+**No file may exceed 150 lines of code.** If a file approaches or exceeds this limit, it is a sign that it violates single-responsibility, lacks extraction, or does not follow the established patterns. Break it down:
+
+- Extract sub-components, hooks, or utilities into their own files.
+- Split large type files into focused modules.
+- Move shared logic into `hooks/` or `services/`.
+
+This applies to ALL files: `.tsx`, `.ts`, `.module.css`, test files, schemas, services.
+
+## Component Rules — Pure Components Only
+
+A component file (`.tsx`) contains ONLY the component: its props interface, the function, and the JSX. Nothing else.
+
+**FORBIDDEN inside a component file:**
+- Utility functions, helpers, formatters, parsers
+- Constants, config objects, mappings
+- Type definitions beyond the component's own Props interface
+- Validation schemas
+- API calls or service logic
+
+**All of these go in their own dedicated files:**
+
+```
+Button/
+├── Button.tsx              # ONLY the component
+├── Button.module.css       # ONLY the styles
+├── Button.constants.ts     # constants, mappings, config
+├── Button.utils.ts         # helpers, formatters specific to this component
+├── Button.types.ts         # types beyond Props (if needed)
+└── index.ts                # barrel export
+```
+
 - One component per file. File name matches component name in PascalCase.
 - Always use named exports, never default exports.
 - Props interface is named `<ComponentName>Props`.
 
 ```typescript
-// atoms/Button/Button.tsx
-export interface ButtonProps {
-  label: string;
-  onClick: () => void;
-  variant?: 'primary' | 'secondary';
-}
+// Button.constants.ts
+export const VARIANT_LABELS = { primary: 'Main', secondary: 'Alt' } as const;
+
+// Button.tsx — pure component, imports what it needs
+import styles from './Button.module.css';
+import type { ButtonProps } from './Button.types';
 
 export function Button({ label, onClick, variant = 'primary' }: ButtonProps) {
   return <button className={styles[variant]} onClick={onClick}>{label}</button>;
 }
 ```
+
+## File Naming Convention
+
+File names must be consistent across the entire app. Follow this exact pattern:
+
+| Content | File name | Example |
+|---------|-----------|---------|
+| Component | `PascalCase.tsx` | `UserCard.tsx` |
+| Component styles | `PascalCase.module.css` | `UserCard.module.css` |
+| Component constants | `PascalCase.constants.ts` | `UserCard.constants.ts` |
+| Component utils | `PascalCase.utils.ts` | `UserCard.utils.ts` |
+| Component types | `PascalCase.types.ts` | `UserCard.types.ts` |
+| Hook | `useCamelCase.ts` | `useAuth.ts` |
+| Service interface | `camelCase.service.ts` | `auth.service.ts` |
+| Service implementation | `camelCase.service.impl.ts` | `auth.service.impl.ts` |
+| Schema | `camelCase.schema.ts` | `login.schema.ts` |
+| Utility (shared) | `camelCase.utils.ts` | `date.utils.ts` |
+| Constants (shared) | `camelCase.constants.ts` | `routes.constants.ts` |
+| Types (shared) | `camelCase.types.ts` | `api.types.ts` |
+| Barrel export | `index.ts` | `index.ts` |
+| Stories | `PascalCase.stories.tsx` | `UserCard.stories.tsx` |
+| Test | `PascalCase.test.ts(x)` | `UserCard.test.tsx` |
+
+This convention is mandatory. Every file across every feature, package, and app must follow it.
+
+## Styling — CSS Modules Only
+
+**NEVER use inline styles** (`style={{ }}`) in any component. All styles go through `className`.
+
+- Every component that needs styles gets its own `<ComponentName>.module.css` file, colocated.
+- Import as: `import styles from './ComponentName.module.css';`
+- Apply via: `className={styles.container}` or `className={styles[variant]}`.
+- **Styles are NOT shared** between component modules. If a value is reusable, it belongs in tokens (`var(--ds-*)`) or in a shared/common CSS file.
+- Compose variants via CSS classes, not JS logic for style objects.
+- Use CSS custom properties (`var(--ds-*)`) inside `.module.css` for tokens.
+
+```css
+/* Button.module.css */
+.base {
+  border-radius: var(--ds-radius-full);
+  font-weight: var(--ds-font-weight-bold);
+  transition: all var(--ds-duration-normal) var(--ds-easing-default);
+  cursor: pointer;
+}
+
+.primary {
+  composes: base;
+  background-color: var(--ds-color-brand-primary);
+  color: var(--ds-color-text-inverse);
+}
+
+.secondary {
+  composes: base;
+  background-color: transparent;
+  color: var(--ds-color-text-primary);
+  border: 1px solid var(--ds-color-border-default);
+}
+```
+
+```typescript
+// FORBIDDEN
+<div style={{ color: 'red', padding: '16px' }}>
+<div style={{ backgroundColor: 'var(--ds-color-bg-base)' }}>
+
+// REQUIRED
+<div className={styles.container}>
+```
+
+## Imports — Path Aliases Only
+
+All cross-boundary imports MUST use path aliases. Never use relative paths (`../`) to navigate between `app/`, `features/`, `shared/`, or `i18n/`.
+
+| Alias | Maps to | Use for |
+|-------|---------|---------|
+| `@guidy/ds` | Design system package | DS components, tokens |
+| `@app/*` | `src/app/*` | App shell, providers, router |
+| `@features/*` | `src/features/*` | Feature modules |
+| `@shared/*` | `src/shared/*` | Shared hooks, utils, types |
+| `@i18n/*` | `src/i18n/*` | i18n config and locales |
+
+```typescript
+// FORBIDDEN — relative cross-boundary
+import { HomePage } from '../features/home/pages/HomePage';
+import { i18n } from '../../i18n';
+
+// REQUIRED — alias makes origin clear
+import { HomePage } from '@features/home';
+import { i18n } from '@i18n/index';
+import { Button } from '@guidy/ds';
+import { AppProviders } from '@app/providers/AppProviders';
+```
+
+**Relative imports are ONLY allowed** within the same module (e.g. inside a feature's own directory, or inside a component's directory for its `.module.css`, `.types.ts`, etc.).
+
+Every web app MUST:
+1. Define these aliases in `tsconfig.json` `paths`.
+2. Mirror them in `rspack.config.ts` `resolve.alias`.
+3. Enforce with ESLint `no-restricted-imports` to ban cross-boundary `../` patterns.
 
 ## SOLID Principles
 

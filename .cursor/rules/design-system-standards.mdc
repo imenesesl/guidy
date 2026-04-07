@@ -1,25 +1,41 @@
 ---
-description: Design system standards — tokens, generic components, Storybook, i18n, no hardcoded values
-globs: apps/web/**/*.{ts,tsx,css,scss}
+description: Design system standards — CSS Modules, tokens, generic components, Storybook, i18n, no hardcoded values, no inline styles
+globs: apps/web/**/*.{ts,tsx,css,module.css}
 alwaysApply: false
 ---
 
 # Design System Standards
 
+## CSS Modules — Mandatory
+
+All styling uses CSS Modules (`.module.css`). NEVER use inline styles or `style={{ }}` props.
+
+```
+ComponentName/
+├── ComponentName.tsx
+├── ComponentName.module.css    # scoped styles
+└── index.ts
+```
+
+- Each component has its own `.module.css`. Styles are NOT shared between modules.
+- Reusable values live in tokens (`var(--ds-*)`) or in `styles/common.css`.
+- Use `composes:` for composing CSS classes within the same module.
+
+```typescript
+// FORBIDDEN — inline styles
+<div style={{ color: '#3b82f6', padding: '16px' }}>
+<div style={{ backgroundColor: 'var(--ds-color-bg-base)' }}>
+
+// REQUIRED — CSS Modules
+import styles from './Card.module.css';
+<div className={styles.container}>
+```
+
 ## Design Tokens
 
 All visual values come from tokens. NEVER hardcode colors, spacing, typography, or shadows.
 
-```typescript
-// FORBIDDEN
-<div style={{ color: '#3b82f6', padding: '16px' }}>
-
-// REQUIRED — use tokens
-<div className={styles.container}>
-// where .container uses: color: var(--color-primary); padding: var(--spacing-4);
-```
-
-Tokens live in a centralized location (`packages/` or `design-system/tokens/`) and are consumed via CSS custom properties or a theme provider.
+Tokens live in `packages/ds/src/styles/tokens.css` and are consumed via CSS custom properties inside `.module.css` files.
 
 ## Colors
 
@@ -55,7 +71,7 @@ const { t } = useTranslation();
 
 - Build a library of generic, composable UI components.
 - Generic components live at the design system level, not inside features.
-- Components must accept tokens/variants via props, not hardcoded styles.
+- Components accept tokens/variants via props, resolved to CSS classes — never inline styles.
 - Every generic component must work standalone without feature-specific context.
 
 ## Storybook

@@ -1,0 +1,20 @@
+.image {
+  border-radius: var(--ds-radius-full);
+  object-fit: cover;
+}
+
+.fallback {
+  border-radius: var(--ds-radius-full);
+  background-color: var(--ds-color-bg-highlight);
+  color: var(--ds-color-text-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--ds-font-size-sm);
+  font-weight: var(--ds-font-weight-bold);
+}
+
+.sm { width: 2rem; height: 2rem; }
+.md { width: 2.5rem; height: 2.5rem; }
+.lg { width: 3.5rem; height: 3.5rem; }
+.xl { width: 5rem; height: 5rem; }

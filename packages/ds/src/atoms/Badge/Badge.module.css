@@ -1,0 +1,15 @@
+.base {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--ds-spacing-1) var(--ds-spacing-2);
+  border-radius: var(--ds-radius-full);
+  font-size: var(--ds-font-size-xs);
+  font-weight: var(--ds-font-weight-medium);
+  line-height: 1;
+}
+
+.default { composes: base; background-color: var(--ds-color-bg-highlight); color: var(--ds-color-text-primary); }
+.success { composes: base; background-color: var(--ds-color-status-success); color: var(--ds-color-text-inverse); }
+.error { composes: base; background-color: var(--ds-color-status-error); color: var(--ds-color-text-primary); }
+.warning { composes: base; background-color: var(--ds-color-status-warning); color: var(--ds-color-text-inverse); }
+.info { composes: base; background-color: var(--ds-color-status-info); color: var(--ds-color-text-primary); }

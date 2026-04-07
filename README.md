@@ -7,28 +7,41 @@ Monorepo for all Guidy applications and services.
 ```
 guidy/
 ├── apps/
-│   ├── web/                # Web applications (React, Next.js, Angular, etc.)
-│   ├── mobile/             # Mobile applications (Flutter)
-│   └── server/             # Backend services (Node.js, NestJS, Go, Python, etc.)
+│   ├── web/
+│   │   └── core/              # Main web app (Rspack + React + TypeScript)
+│   ├── mobile/                # Mobile applications (Flutter)
+│   └── server/                # Backend services
 │
 ├── packages/
-│   ├── shared/             # Shared logic across platforms (types, utils, constants)
-│   └── config/             # Shared dev configurations (linters, formatters, tsconfig)
+│   ├── ds/                    # Design system — @guidy/ds (tokens, atoms, molecules)
+│   ├── shared/                # Shared logic across platforms (types, utils, constants)
+│   └── config/                # Shared dev configurations (linters, formatters, tsconfig)
 │
 ├── tools/
-│   └── scripts/            # Automation & CI/CD scripts
+│   └── scripts/               # Automation & CI/CD scripts
 │
-└── docs/                   # Architecture docs, ADRs, guides
+└── docs/                      # Architecture docs, ADRs, guides
 ```
 
 ## Conventions
 
 | Area | Naming | Example |
 |------|--------|---------|
-| Web app | `apps/web/<app-name>` | `apps/web/dashboard` |
+| Web app | `apps/web/<app-name>` | `apps/web/core` |
 | Mobile app | `apps/mobile/<app-name>` | `apps/mobile/customer-app` |
 | Server | `apps/server/<service-name>` | `apps/server/auth-api` |
+| Design system | `packages/ds` | `packages/ds` |
 | Shared package | `packages/<package-name>` | `packages/shared` |
+
+## Quick Start
+
+```bash
+# Install all dependencies
+pnpm install
+
+# Run core web app
+pnpm dev:core
+```
 
 ## Adding a new application
 

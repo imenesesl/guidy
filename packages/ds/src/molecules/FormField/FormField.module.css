@@ -1,0 +1,26 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-spacing-1);
+}
+
+.label {
+  font-size: var(--ds-font-size-sm);
+  font-weight: var(--ds-font-weight-medium);
+  color: var(--ds-color-text-secondary);
+}
+
+.required {
+  color: var(--ds-color-status-error);
+  margin-left: var(--ds-spacing-1);
+}
+
+.error {
+  font-size: var(--ds-font-size-xs);
+  color: var(--ds-color-status-error);
+}
+
+.hint {
+  font-size: var(--ds-font-size-xs);
+  color: var(--ds-color-text-subdued);
+}

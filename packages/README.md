@@ -6,6 +6,7 @@ Reusable libraries and modules shared across applications.
 
 ```
 packages/
+├── ds/               # Design system (tokens, atoms, molecules) — @guidy/ds
 ├── shared/           # Platform-agnostic shared logic (types, utils, constants)
 ├── config/           # Shared configurations (ESLint, Prettier, TypeScript, etc.)
 └── ...

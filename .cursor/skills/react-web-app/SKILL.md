@@ -14,9 +14,9 @@ description: >-
 | Tool | Purpose |
 |------|---------|
 | Rspack | Bundler |
-| React 18+ | UI library |
+| React 19 (latest) | UI library — always 19.x, never older |
 | TypeScript (strict) | Language |
-| ESLint (flat config) | Linting |
+| ESLint 10 (flat config) | Linting — always 10.x with @eslint/js 10.x |
 | TanStack Router | Navigation |
 | TanStack Query | Server state / data fetching |
 | React Hook Form | Form management |
@@ -38,22 +38,28 @@ Select the React + TypeScript template.
 
 ### Step 2 — Install core dependencies
 
+IMPORTANT: Always use React 19 (latest) and ESLint 10 (latest). Never install older major versions.
+
 ```bash
 cd apps/web/<app-name>
 
+# React 19
+pnpm add react@latest react-dom@latest
+
 # Routing & data
-npm install @tanstack/react-router @tanstack/react-query
+pnpm add @tanstack/react-router @tanstack/react-query
 
 # Forms & validation
-npm install react-hook-form @hookform/resolvers valibot
+pnpm add react-hook-form @hookform/resolvers valibot
 
 # i18n
-npm install react-i18next i18next
+pnpm add react-i18next i18next
 
-# Dev tooling
-npm install -D eslint @eslint/js typescript-eslint globals
-npm install -D @storybook/react-vite storybook
-npm install -D vitest @testing-library/react @testing-library/jest-dom jsdom
+# Dev tooling — ESLint 10
+pnpm add -D eslint@latest @eslint/js@latest typescript-eslint@latest globals
+pnpm add -D @types/react@latest @types/react-dom@latest
+pnpm add -D @storybook/react-vite storybook
+pnpm add -D vitest @testing-library/react @testing-library/jest-dom jsdom
 ```
 
 ### Step 3 — Configure TypeScript strict
@@ -113,10 +119,18 @@ apps/web/<app-name>/
 │   ├── features/               # Isolated feature modules
 │   │   └── <feature>/
 │   │       ├── atoms/
+│   │       │   └── MyAtom/
+│   │       │       ├── MyAtom.tsx
+│   │       │       ├── MyAtom.module.css
+│   │       │       └── index.ts
 │   │       ├── molecules/
 │   │       ├── organisms/
 │   │       ├── templates/
 │   │       ├── pages/
+│   │       │   └── FeaturePage/
+│   │       │       ├── FeaturePage.tsx
+│   │       │       ├── FeaturePage.module.css
+│   │       │       └── index.ts
 │   │       ├── hooks/
 │   │       ├── services/
 │   │       ├── schemas/
@@ -185,10 +199,28 @@ Update all READMEs (app, parent, root).
 
 When adding a feature, follow the `web-workflow` skill at `.cursor/skills/web-workflow/SKILL.md`.
 
+## Styling — CSS Modules
+
+Every component that needs styles has a colocated `.module.css` file:
+
+```
+Button/
+├── Button.tsx
+├── Button.module.css
+└── index.ts
+```
+
+Rules:
+- **NEVER use inline styles** (`style={{ }}`). Always `className`.
+- Import as `import styles from './Button.module.css';`.
+- Use CSS custom properties (`var(--ds-*)`) inside `.module.css` for token values.
+- Styles are scoped to the component. No cross-component `.module.css` imports.
+- Reusable values go in tokens or `styles/common.css`.
+
 ## Key Rules Reference
 
 All web app code must follow these rules:
-- `react-web-standards.mdc` — coding standards
-- `design-system-standards.mdc` — design system
-- `web-quality-gate.mdc` — quality checks
+- `react-web-standards.mdc` — coding standards (includes CSS Modules mandate)
+- `design-system-standards.mdc` — design system (no inline styles, tokens only)
+- `web-quality-gate.mdc` — quality checks (inline style scan)
 - `web-roles.mdc` — role workflow

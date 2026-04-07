@@ -1,0 +1,29 @@
+.base {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--ds-spacing-1);
+  padding: var(--ds-spacing-1) var(--ds-spacing-3);
+  border-radius: var(--ds-radius-full);
+  font-size: var(--ds-font-size-sm);
+  font-weight: var(--ds-font-weight-medium);
+  font-family: inherit;
+  border: none;
+  cursor: pointer;
+  transition: all var(--ds-duration-normal) var(--ds-easing-default);
+  background-color: var(--ds-color-bg-highlight);
+  color: var(--ds-color-text-primary);
+}
+
+.base:hover {
+  background-color: var(--ds-color-bg-surface);
+}
+
+.selected {
+  composes: base;
+  background-color: var(--ds-color-text-primary);
+  color: var(--ds-color-text-inverse);
+}
+
+.selected:hover {
+  background-color: var(--ds-color-text-secondary);
+}

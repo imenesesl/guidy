@@ -6,8 +6,7 @@ Each subdirectory here is an independent web application.
 
 ```
 apps/web/
-├── app-name-1/       # e.g. Next.js, React, Angular app
-├── app-name-2/
+├── core/             # Main Guidy web app (Rspack + React + TS)
 └── ...
 ```
 

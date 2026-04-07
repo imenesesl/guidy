@@ -1,0 +1,12 @@
+{
+  "name": "guidy",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "dev:core": "pnpm --filter @guidy/core dev",
+    "build:core": "pnpm --filter @guidy/core build",
+    "lint": "pnpm -r --if-present run lint",
+    "typecheck": "pnpm -r --if-present run typecheck",
+    "test": "pnpm -r --if-present run test"
+  }
+}

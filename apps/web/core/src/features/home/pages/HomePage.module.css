@@ -1,0 +1,41 @@
+.page {
+  min-height: 100vh;
+  background-color: var(--ds-color-bg-base);
+  padding: var(--ds-spacing-8);
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: var(--ds-spacing-4);
+  margin-bottom: var(--ds-spacing-6);
+}
+
+.chipGroup {
+  display: flex;
+  gap: var(--ds-spacing-2);
+  margin-bottom: var(--ds-spacing-6);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: var(--ds-spacing-4);
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--ds-spacing-3);
+}
+
+.actions {
+  display: flex;
+  gap: var(--ds-spacing-3);
+}

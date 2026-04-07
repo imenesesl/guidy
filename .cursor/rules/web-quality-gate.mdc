@@ -8,21 +8,37 @@ alwaysApply: false
 
 This rule defines the auditor's checks before any code is pushed.
 
+## Version Check
+
+Before pushing, verify minimum versions:
+- **React**: 19.x (latest). Flag if < 19.
+- **ESLint**: 10.x (latest). Flag if < 10.
+- **TypeScript**: 5.x strict.
+
 ## Pre-push Checklist
 
 Before pushing, ALL checks must pass:
 
 ```
 Quality Gate:
+  [ ] Versions — React 19.x, ESLint 10.x, TypeScript 5.x strict
+  [ ] File size — no file exceeds 150 lines
   [ ] ESLint — zero errors, zero warnings
-  [ ] TypeScript — strict mode, zero errors
   [ ] Tests — all passing, coverage thresholds met
+  [ ] No inline styles — zero `style={{ }}` or `style={` in .tsx files
   [ ] No hardcoded colors — all colors from tokens
   [ ] No hardcoded text — all strings from i18n
+  [ ] CSS Modules — every styled component has .module.css, no plain .css in components
   [ ] No unused code — dead exports, unused variables, unreachable code removed
   [ ] Storybook — builds without errors
   [ ] Bundle analysis — documented and compared to previous
 ```
+
+## File Size
+
+- No file may exceed **150 lines**. Scan all changed files with `wc -l`.
+- If any file exceeds the limit, it must be refactored before pushing.
+- This is a hard limit, not a suggestion.
 
 ## Linter
 
@@ -34,13 +50,20 @@ Quality Gate:
 - `strict: true` in `tsconfig.json`. No escape hatches.
 - Zero `any` types. Zero `@ts-ignore` or `@ts-expect-error` without justification.
 
+## No Inline Styles
+
+- Scan `.tsx` files for `style={{` or `style={`. There must be ZERO occurrences.
+- All styling must use `className` with CSS Modules.
+- Exception: truly dynamic values computed at runtime (e.g. `style={{ '--progress': percent }}` for CSS variable injection) — must be justified.
+
 ## No Hardcoded Values
 
 Scan for violations:
 
-- **Colors**: no `#hex`, `rgb()`, `hsl()` in `.tsx` or `.css` files (only in token definitions).
+- **Colors**: no `#hex`, `rgb()`, `hsl()` in `.tsx` or `.module.css` files (only in token definitions).
 - **Text**: no raw strings in JSX that are user-visible. All must use `t()` from i18n.
 - **Spacing**: no magic pixel values outside token definitions.
+- **Styles between modules**: no importing one component's `.module.css` from another component.
 
 ## Unused Code
 

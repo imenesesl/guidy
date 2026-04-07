@@ -211,10 +211,10 @@ features/<name>/
 
 ### Actions
 
-1. Run ESLint: `npm run lint` — zero errors.
-2. Run TypeScript check: `npx tsc --noEmit` — zero errors.
-3. Run all tests: `npm test` — all passing.
-4. Run Storybook build: `npm run build-storybook` — no errors.
+1. Run ESLint: `pnpm lint` — zero errors.
+2. Run TypeScript check: `pnpm tsc --noEmit` — zero errors.
+3. Run all tests: `pnpm test` — all passing.
+4. Run Storybook build: `pnpm build-storybook` — no errors.
 5. Scan for hardcoded colors: search for `#[0-9a-fA-F]`, `rgb(`, `hsl(` outside token files.
 6. Scan for hardcoded text: search for raw strings in JSX that aren't using `t()`.
 7. Scan for unused exports: check for dead code.

@@ -1,0 +1,5 @@
+.divider {
+  border: none;
+  border-top: 1px solid var(--ds-color-border-subtle);
+  margin: var(--ds-spacing-4) 0;
+}

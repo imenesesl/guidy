@@ -1,0 +1,19 @@
+@keyframes dsSpin {
+  to { transform: rotate(360deg); }
+}
+
+.spinner {
+  animation: dsSpin 0.8s linear infinite;
+}
+
+.sm { width: 1rem; height: 1rem; }
+.md { width: 1.5rem; height: 1.5rem; }
+.lg { width: 2.5rem; height: 2.5rem; }
+
+.track {
+  stroke: var(--ds-color-bg-highlight);
+}
+
+.indicator {
+  stroke: var(--ds-color-brand-primary);
+}

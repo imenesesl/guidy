@@ -1,0 +1,76 @@
+.base {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--ds-spacing-2);
+  border: none;
+  border-radius: var(--ds-radius-full);
+  font-weight: var(--ds-font-weight-bold);
+  font-family: inherit;
+  cursor: pointer;
+  transition: all var(--ds-duration-normal) var(--ds-easing-default);
+}
+
+.base:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Variants */
+.primary {
+  composes: base;
+  background-color: var(--ds-color-brand-primary);
+  color: var(--ds-color-text-inverse);
+}
+
+.primary:hover:not(:disabled) {
+  background-color: var(--ds-color-brand-primary-hover);
+}
+
+.secondary {
+  composes: base;
+  background-color: transparent;
+  color: var(--ds-color-text-primary);
+  border: 1px solid var(--ds-color-border-default);
+}
+
+.secondary:hover:not(:disabled) {
+  background-color: var(--ds-color-bg-highlight);
+}
+
+.ghost {
+  composes: base;
+  background-color: transparent;
+  color: var(--ds-color-text-secondary);
+}
+
+.ghost:hover:not(:disabled) {
+  color: var(--ds-color-text-primary);
+  background-color: var(--ds-color-bg-highlight);
+}
+
+.danger {
+  composes: base;
+  background-color: var(--ds-color-status-error);
+  color: var(--ds-color-text-primary);
+}
+
+/* Sizes */
+.sm {
+  padding: var(--ds-spacing-1) var(--ds-spacing-3);
+  font-size: var(--ds-font-size-sm);
+}
+
+.md {
+  padding: var(--ds-spacing-2) var(--ds-spacing-4);
+  font-size: var(--ds-font-size-base);
+}
+
+.lg {
+  padding: var(--ds-spacing-3) var(--ds-spacing-6);
+  font-size: var(--ds-font-size-lg);
+}
+
+.fullWidth {
+  width: 100%;
+}
