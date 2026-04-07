@@ -1,8 +1,19 @@
 {
   "home": {
     "title": "Bienvenido a Guidy",
-    "subtitle": "Tu monorepo está listo",
-    "cta": "Comenzar"
+    "subtitle": "Tu monorepo esta listo",
+    "cta": "Comenzar",
+    "search_placeholder": "Buscar...",
+    "chip_all": "Todos",
+    "chip_components": "Componentes",
+    "chip_tokens": "Tokens",
+    "card_ds_title": "Design System",
+    "card_ds_badge": "Listo",
+    "card_ds_desc": "Tokens, atomos y moleculas con @guidy/ds",
+    "card_core_title": "Core App",
+    "card_core_desc": "Scaffold con Rspack + React + TypeScript",
+    "btn_docs": "Docs",
+    "btn_settings": "Ajustes"
   },
   "error": {
     "title": "Algo salio mal",

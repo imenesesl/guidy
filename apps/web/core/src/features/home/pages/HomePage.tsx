@@ -18,34 +18,34 @@ export function HomePage(): React.JSX.Element {
           </div>
         </div>
 
-        <SearchField placeholder="Search..." fullWidth />
+        <SearchField placeholder={t('home.search_placeholder')} fullWidth />
 
         <Divider />
 
         <div className={styles['chipGroup']}>
-          <Chip selected>All</Chip>
-          <Chip>Components</Chip>
-          <Chip>Tokens</Chip>
+          <Chip selected>{t('home.chip_all')}</Chip>
+          <Chip>{t('home.chip_components')}</Chip>
+          <Chip>{t('home.chip_tokens')}</Chip>
         </div>
 
         <div className={styles['grid']}>
           <Card variant="elevated">
             <div className={styles['cardHeader']}>
-              <Text variant="heading-5">Design System</Text>
-              <Badge variant="success">Ready</Badge>
+              <Text variant="heading-5">{t('home.card_ds_title')}</Text>
+              <Badge variant="success">{t('home.card_ds_badge')}</Badge>
             </div>
             <Text variant="body-small" color="secondary">
-              Tokens, atoms, and molecules powered by @guidy/ds
+              {t('home.card_ds_desc')}
             </Text>
           </Card>
 
           <Card variant="surface">
             <div className={styles['cardHeader']}>
-              <Text variant="heading-5">Core App</Text>
+              <Text variant="heading-5">{t('home.card_core_title')}</Text>
               <Spinner size="sm" />
             </div>
             <Text variant="body-small" color="secondary">
-              Rspack + React + TypeScript scaffold
+              {t('home.card_core_desc')}
             </Text>
           </Card>
         </div>
@@ -54,8 +54,8 @@ export function HomePage(): React.JSX.Element {
 
         <div className={styles['actions']}>
           <Button variant="primary">{t('home.cta')}</Button>
-          <Button variant="secondary">Docs</Button>
-          <Button variant="ghost">Settings</Button>
+          <Button variant="secondary">{t('home.btn_docs')}</Button>
+          <Button variant="ghost">{t('home.btn_settings')}</Button>
         </div>
       </div>
     </div>

@@ -1,8 +1,7 @@
 import { Component } from 'react';
 import type { ErrorInfo, ReactNode } from 'react';
-import { Text, Button, Card } from '@guidy/ds';
+import { ErrorFallback } from '@guidy/ds';
 import { i18n } from '@i18n/index';
-import styles from './ErrorBoundary.module.css';
 
 interface ErrorBoundaryProps {
   children: ReactNode;
@@ -42,19 +41,12 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
     }
 
     return (
-      <div className={styles['container']}>
-        <Card variant="elevated">
-          <div className={styles['content']}>
-            <Text variant="heading-4">{i18n.t('error.title')}</Text>
-            <Text variant="body-small" color="secondary">
-              {this.state.error?.message ?? i18n.t('error.fallback')}
-            </Text>
-            <Button variant="primary" onClick={this.handleReset}>
-              {i18n.t('error.retry')}
-            </Button>
-          </div>
-        </Card>
-      </div>
+      <ErrorFallback
+        title={i18n.t('error.title')}
+        message={this.state.error?.message ?? i18n.t('error.fallback')}
+        buttonLabel={i18n.t('error.retry')}
+        onRetry={this.handleReset}
+      />
     );
   }
 }

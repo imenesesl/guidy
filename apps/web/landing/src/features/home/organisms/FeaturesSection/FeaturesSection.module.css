@@ -50,4 +50,17 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  color: var(--ds-color-text-primary);
+}
+
+.iconBubble--blue {
+  background-color: var(--ds-color-accent-blue);
+}
+
+.iconBubble--yellow {
+  background-color: var(--ds-color-accent-yellow);
+}
+
+.iconBubble--purple {
+  background-color: var(--ds-color-accent-purple);
 }

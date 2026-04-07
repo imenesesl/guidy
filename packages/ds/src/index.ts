@@ -48,3 +48,6 @@ export type { SearchFieldProps } from './molecules/SearchField';
 
 export { Chip } from './molecules/Chip';
 export type { ChipProps } from './molecules/Chip';
+
+export { ErrorFallback } from './molecules/ErrorFallback';
+export type { ErrorFallbackProps } from './molecules/ErrorFallback';

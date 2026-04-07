@@ -74,10 +74,10 @@ while IFS= read -r comp; do
   if [ ! -f "$story" ]; then
     MISSING_STORIES="$MISSING_STORIES\n  $comp (missing $base.stories.tsx)"
   fi
-done < <(find packages/ds/src/atoms packages/ds/src/molecules -name '*.tsx' ! -name '*.stories.tsx' ! -name '*.test.tsx' ! -name 'index.ts' ! -name 'index.tsx')
+done < <(find packages/ds/src/atoms packages/ds/src/molecules apps/web/core/src apps/web/landing/src -name '*.tsx' ! -name '*.stories.tsx' ! -name '*.test.tsx' ! -name 'index.ts' ! -name 'index.tsx' ! -name 'main.tsx' ! -name 'test-setup.ts' ! -path '*/node_modules/*')
 
 if [ -z "$MISSING_STORIES" ]; then
-  RESULTS+=("${GREEN}[PASS]${NC} Every DS component has a Storybook story")
+  RESULTS+=("${GREEN}[PASS]${NC} Every component has a Storybook story")
   PASS=$((PASS + 1))
 else
   RESULTS+=("${RED}[FAIL]${NC} Components missing stories:$MISSING_STORIES")
@@ -94,10 +94,10 @@ while IFS= read -r comp; do
   if [ ! -f "$test_file" ]; then
     MISSING_TESTS="$MISSING_TESTS\n  $comp (missing $base.test.tsx)"
   fi
-done < <(find packages/ds/src/atoms packages/ds/src/molecules -name '*.tsx' ! -name '*.stories.tsx' ! -name '*.test.tsx' ! -name 'index.ts' ! -name 'index.tsx')
+done < <(find packages/ds/src/atoms packages/ds/src/molecules apps/web/core/src apps/web/landing/src -name '*.tsx' ! -name '*.stories.tsx' ! -name '*.test.tsx' ! -name 'index.ts' ! -name 'index.tsx' ! -name 'main.tsx' ! -name 'test-setup.ts' ! -path '*/node_modules/*')
 
 if [ -z "$MISSING_TESTS" ]; then
-  RESULTS+=("${GREEN}[PASS]${NC} Every DS component has a test file")
+  RESULTS+=("${GREEN}[PASS]${NC} Every component has a test file")
   PASS=$((PASS + 1))
 else
   RESULTS+=("${RED}[FAIL]${NC} Components missing tests:$MISSING_TESTS")

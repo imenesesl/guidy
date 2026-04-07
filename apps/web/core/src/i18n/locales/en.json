@@ -2,7 +2,18 @@
   "home": {
     "title": "Welcome to Guidy",
     "subtitle": "Your monorepo is ready",
-    "cta": "Get Started"
+    "cta": "Get Started",
+    "search_placeholder": "Search...",
+    "chip_all": "All",
+    "chip_components": "Components",
+    "chip_tokens": "Tokens",
+    "card_ds_title": "Design System",
+    "card_ds_badge": "Ready",
+    "card_ds_desc": "Tokens, atoms, and molecules powered by @guidy/ds",
+    "card_core_title": "Core App",
+    "card_core_desc": "Rspack + React + TypeScript scaffold",
+    "btn_docs": "Docs",
+    "btn_settings": "Settings"
   },
   "error": {
     "title": "Something went wrong",

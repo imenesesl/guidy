@@ -5,10 +5,12 @@ import { Text, WavesDivider } from '@guidy/ds';
 import { Fingerprint, Lightbulb, BarChart3 } from 'lucide-react';
 import styles from './FeaturesSection.module.css';
 
-const FEATURES: { key: string; Icon: LucideIcon; color: string }[] = [
-  { key: 'variations', Icon: Fingerprint, color: '#4ECDC4' },
-  { key: 'guided', Icon: Lightbulb, color: '#FBBF24' },
-  { key: 'insights', Icon: BarChart3, color: '#A78BFA' },
+type FeatureAccent = 'blue' | 'yellow' | 'purple';
+
+const FEATURES: { key: string; Icon: LucideIcon; accent: FeatureAccent }[] = [
+  { key: 'variations', Icon: Fingerprint, accent: 'blue' },
+  { key: 'guided', Icon: Lightbulb, accent: 'yellow' },
+  { key: 'insights', Icon: BarChart3, accent: 'purple' },
 ];
 
 export function FeaturesSection(): React.JSX.Element {
@@ -29,7 +31,7 @@ export function FeaturesSection(): React.JSX.Element {
         </motion.div>
 
         <div className={styles['rows']}>
-          {FEATURES.map(({ key, Icon, color }, i) => (
+          {FEATURES.map(({ key, Icon, accent }, i) => (
             <motion.div
               key={key}
               className={i % 2 === 0 ? styles['row'] : styles['rowReverse']}
@@ -49,8 +51,10 @@ export function FeaturesSection(): React.JSX.Element {
                 whileHover={{ scale: 1.05, rotate: 2 }}
                 transition={{ type: 'spring', stiffness: 200, damping: 15 }}
               >
-                <div className={styles['iconBubble']} style={{ backgroundColor: color }}>
-                  <Icon size={64} color="#fff" />
+                <div
+                  className={`${styles['iconBubble'] ?? ''} ${styles[`iconBubble--${accent}`] ?? ''}`}
+                >
+                  <Icon size={64} />
                 </div>
               </motion.div>
             </motion.div>
