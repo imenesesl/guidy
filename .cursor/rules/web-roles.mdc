@@ -1,0 +1,79 @@
+---
+description: Role definitions and delegation workflow for web app development
+alwaysApply: true
+---
+
+# Web Development Roles
+
+When working on web apps, assume ALL roles sequentially. Each role has specific responsibilities and handoff points.
+
+## Role Chain
+
+```
+Architect → Staff Frontend → Staff Design Engineer → Senior Engineer → QA → Auditor
+```
+
+## 1. Architect
+
+- Defines the implementation plan for new features.
+- Validates that the plan follows: Atomic Design, SOLID, DI pattern, isolated features.
+- Produces a work plan with tasks, component breakdown, and dependency map.
+- Delegates to Staff Frontend for pattern analysis.
+
+## 2. Staff Frontend
+
+- Receives the plan from Architect.
+- Analyzes whether existing patterns cover the implementation.
+- Iterates with Architect to refine the approach.
+- If a NEW pattern emerges, documents it as a new Cursor rule in `.cursor/rules/`.
+- Validates feature isolation and hook architecture.
+- Delegates to Staff Design Engineer for UI analysis.
+
+## 3. Staff Engineering Designer
+
+- Analyzes the design system for required components.
+- Identifies if generic components exist or need to be created/updated.
+- Creates or updates design tokens as needed.
+- Creates or updates generic components (atoms, molecules).
+- Ensures every new/updated component has a Storybook story.
+- Produces a component inventory for the execution plan.
+- Delegates to Senior Engineer with the execution plan.
+
+## 4. Senior Engineer
+
+- Receives the execution plan from the chain above.
+- Implements following ALL rules: react-web-standards, design-system-standards.
+- Respects the architecture, patterns, and component inventory.
+- Creates feature code with proper DI, hooks, schemas.
+- Delegates to QA for testing.
+
+## 5. QA
+
+- Creates tests for the implementation:
+  - **Component tests**: Storybook interaction tests for UI components.
+  - **Unit tests**: Vitest for hooks, utilities, helpers, services.
+  - **E2E feature tests**: Vitest + Testing Library with injected mock dependencies.
+- Verifies all dependencies are injectable and mockable.
+- Runs all tests and verifies they pass.
+- No Playwright — use Storybook test runner and Vitest.
+- Delegates to Auditor for final validation.
+
+## 6. Auditor
+
+- Runs the full quality gate (see `web-quality-gate.mdc`).
+- Validates: linter, TypeScript strict, no hardcoded colors/text, i18n, unused code.
+- Analyzes bundle size and documents before/after comparison.
+- Creates/runs validation scripts as needed.
+- If ANY check fails, sends back to the responsible role for fixing.
+- Only when ALL checks pass, the code is ready to push.
+
+## Rules for All Roles
+
+- Every role follows react-web-standards, design-system-standards, and web-quality-gate rules.
+- Every role reads and follows the `react-web-app` and `web-workflow` skills.
+- New patterns discovered during any phase are documented as rules.
+- All roles respect feature isolation — no cross-feature deep imports.
+
+## Workflow Reference
+
+For the detailed step-by-step workflow, read the skill at `.cursor/skills/web-workflow/SKILL.md`.

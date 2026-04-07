@@ -1,0 +1,67 @@
+---
+description: Quality gate and auditor checks before pushing web app code
+globs: apps/web/**/*.{ts,tsx}
+alwaysApply: false
+---
+
+# Web Quality Gate
+
+This rule defines the auditor's checks before any code is pushed.
+
+## Pre-push Checklist
+
+Before pushing, ALL checks must pass:
+
+```
+Quality Gate:
+  [ ] ESLint — zero errors, zero warnings
+  [ ] TypeScript — strict mode, zero errors
+  [ ] Tests — all passing, coverage thresholds met
+  [ ] No hardcoded colors — all colors from tokens
+  [ ] No hardcoded text — all strings from i18n
+  [ ] No unused code — dead exports, unused variables, unreachable code removed
+  [ ] Storybook — builds without errors
+  [ ] Bundle analysis — documented and compared to previous
+```
+
+## Linter
+
+- Run ESLint with the project's flat config. Zero errors, zero warnings.
+- Create/update lint scripts in `package.json` if missing.
+
+## TypeScript Strict
+
+- `strict: true` in `tsconfig.json`. No escape hatches.
+- Zero `any` types. Zero `@ts-ignore` or `@ts-expect-error` without justification.
+
+## No Hardcoded Values
+
+Scan for violations:
+
+- **Colors**: no `#hex`, `rgb()`, `hsl()` in `.tsx` or `.css` files (only in token definitions).
+- **Text**: no raw strings in JSX that are user-visible. All must use `t()` from i18n.
+- **Spacing**: no magic pixel values outside token definitions.
+
+## Unused Code
+
+- Remove unused imports, variables, functions, and components.
+- Remove dead feature flags and unreachable branches.
+- Be cautious: verify code is truly unused before removing. Check for dynamic imports and indirect references.
+
+## Bundle Analysis
+
+Before and after significant changes:
+
+1. Record current bundle size (`npx rspack build --json > stats-before.json`).
+2. Apply changes.
+3. Record new bundle size.
+4. Document comparison in the PR or commit message.
+5. Flag any increase > 5% for review.
+
+## Test Requirements
+
+- Component tests via Storybook interaction tests.
+- Unit tests for hooks, utilities, helpers (Vitest).
+- E2E tests for feature flows using injected mock dependencies.
+- No Playwright — use Vitest + Testing Library or Storybook test runner.
+- All injectable dependencies must be mockable for testing.

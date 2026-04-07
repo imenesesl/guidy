@@ -1,0 +1,83 @@
+---
+description: Design system standards — tokens, generic components, Storybook, i18n, no hardcoded values
+globs: apps/web/**/*.{ts,tsx,css,scss}
+alwaysApply: false
+---
+
+# Design System Standards
+
+## Design Tokens
+
+All visual values come from tokens. NEVER hardcode colors, spacing, typography, or shadows.
+
+```typescript
+// FORBIDDEN
+<div style={{ color: '#3b82f6', padding: '16px' }}>
+
+// REQUIRED — use tokens
+<div className={styles.container}>
+// where .container uses: color: var(--color-primary); padding: var(--spacing-4);
+```
+
+Tokens live in a centralized location (`packages/` or `design-system/tokens/`) and are consumed via CSS custom properties or a theme provider.
+
+## Colors
+
+- ZERO hardcoded color values (`#hex`, `rgb()`, `hsl()`) in components.
+- All colors reference token variables.
+- Semantic naming: `--color-primary`, `--color-error`, `--color-surface`, not `--blue-500`.
+
+## Typography
+
+- All font sizes, weights, and line heights come from tokens.
+- Use semantic type scales: `--text-heading-1`, `--text-body`, `--text-caption`.
+
+## Spacing
+
+- Use a spacing scale: `--spacing-1` through `--spacing-12` (or similar).
+- No magic pixel numbers in components.
+
+## Text & i18n
+
+All user-visible text MUST come from i18n. No hardcoded strings in components.
+
+```typescript
+// FORBIDDEN
+<h1>Welcome to Dashboard</h1>
+
+// REQUIRED
+import { useTranslation } from 'react-i18next';
+const { t } = useTranslation();
+<h1>{t('dashboard.welcome')}</h1>
+```
+
+## Generic Components
+
+- Build a library of generic, composable UI components.
+- Generic components live at the design system level, not inside features.
+- Components must accept tokens/variants via props, not hardcoded styles.
+- Every generic component must work standalone without feature-specific context.
+
+## Storybook
+
+- Every atom, molecule, and generic component MUST have a Storybook story.
+- Stories document all variants, states, and edge cases.
+- Stories serve as living documentation and visual regression test targets.
+- Story file: `<ComponentName>.stories.tsx` colocated with the component.
+
+```typescript
+// Button.stories.tsx
+import type { Meta, StoryObj } from '@storybook/react';
+import { Button } from './Button';
+
+const meta: Meta<typeof Button> = {
+  component: Button,
+  title: 'Atoms/Button',
+};
+
+export default meta;
+type Story = StoryObj<typeof Button>;
+
+export const Primary: Story = { args: { label: 'Click me', variant: 'primary' } };
+export const Secondary: Story = { args: { label: 'Cancel', variant: 'secondary' } };
+```

@@ -1,0 +1,146 @@
+---
+description: React and TypeScript coding standards for all web applications
+globs: apps/web/**/*.{ts,tsx}
+alwaysApply: false
+---
+
+# React Web Standards
+
+## TypeScript
+
+- **NEVER use `any`**. Use `unknown`, generics, or proper types. If a type is truly unknown, narrow it.
+- Prefer `interface` for object shapes, `type` for unions/intersections.
+- All function parameters and return types must be explicitly typed.
+- Use `as const` for literal enums. Avoid TypeScript `enum`.
+
+```typescript
+// FORBIDDEN
+const data: any = fetchData();
+
+// REQUIRED
+const data: unknown = fetchData();
+if (isUser(data)) { /* narrowed */ }
+```
+
+## Atomic Design
+
+All components follow Atomic Design strictly:
+
+```
+feature/
+├── atoms/          # Smallest UI units (Button, Input, Icon, Label)
+├── molecules/      # Groups of atoms (SearchField, FormField, NavItem)
+├── organisms/      # Complex UI sections (Header, UserForm, DataTable)
+├── templates/      # Page layouts with slots (DashboardLayout, AuthLayout)
+└── pages/          # Route-level components, compose templates + organisms
+```
+
+- Atoms have ZERO business logic.
+- Molecules combine atoms, may have minimal local state.
+- Organisms can consume hooks and context.
+- Pages are the only layer that wires routes, data fetching, and orchestration.
+
+## Component Rules
+
+- Components must be small, single-responsibility, and reusable.
+- Max ~80 lines per component file. If larger, extract sub-components.
+- One component per file. File name matches component name in PascalCase.
+- Always use named exports, never default exports.
+- Props interface is named `<ComponentName>Props`.
+
+```typescript
+// atoms/Button/Button.tsx
+export interface ButtonProps {
+  label: string;
+  onClick: () => void;
+  variant?: 'primary' | 'secondary';
+}
+
+export function Button({ label, onClick, variant = 'primary' }: ButtonProps) {
+  return <button className={styles[variant]} onClick={onClick}>{label}</button>;
+}
+```
+
+## SOLID Principles
+
+- **S** — Each module/component has one reason to change.
+- **O** — Extend via composition and props, not modification.
+- **I** — Props interfaces should be minimal; split large interfaces.
+- **D** — Depend on abstractions (interfaces/hooks), not concrete implementations.
+
+## Dependency Injection
+
+All external dependencies (API clients, services, storage, analytics) MUST be injected, never instantiated inline.
+
+```typescript
+// FORBIDDEN
+function useUsers() {
+  const api = new ApiClient();         // hardcoded instance
+  return useQuery({ queryFn: () => api.getUsers() });
+}
+
+// REQUIRED — inject via provider/hook
+function useUsers(api: ApiClient = useApiClient()) {
+  return useQuery({ queryKey: ['users'], queryFn: () => api.getUsers() });
+}
+```
+
+Use React Context + Provider pattern for DI containers. Every feature must be testable by swapping injected dependencies.
+
+## Custom Hooks
+
+- All stateful logic, side effects, and data access MUST live in custom hooks.
+- Components should only call hooks and render JSX.
+- Hook files: `use<Name>.ts` in a `hooks/` directory.
+- Hooks must be composable and testable in isolation.
+
+## Forms — React Hook Form + Valibot
+
+All forms use React Hook Form with Valibot for schema validation.
+
+```typescript
+import { useForm } from 'react-hook-form';
+import { valibotResolver } from '@hookform/resolvers/valibot';
+import * as v from 'valibot';
+
+const LoginSchema = v.object({
+  email: v.pipe(v.string(), v.email()),
+  password: v.pipe(v.string(), v.minLength(8)),
+});
+
+type LoginForm = v.InferOutput<typeof LoginSchema>;
+
+export function useLoginForm() {
+  return useForm<LoginForm>({
+    resolver: valibotResolver(LoginSchema),
+  });
+}
+```
+
+## Navigation — TanStack Router
+
+Use TanStack Router for all routing. Define routes with file-based or code-based routing following TanStack conventions.
+
+## Data Fetching — TanStack Query
+
+All server-state management uses TanStack Query. Never store server data in local state.
+
+## Isolated Features
+
+Every feature must be self-contained and portable:
+
+```
+features/
+└── auth/
+    ├── atoms/
+    ├── molecules/
+    ├── organisms/
+    ├── hooks/
+    ├── services/        # interfaces + implementations
+    ├── schemas/         # Valibot schemas
+    ├── types/
+    ├── constants/
+    └── index.ts         # public API barrel
+```
+
+Features communicate through their public API (`index.ts`). No deep imports across features.
