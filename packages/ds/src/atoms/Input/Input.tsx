@@ -9,16 +9,19 @@ export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   fullWidth?: boolean;
 }
 
-export const Input = forwardRef<HTMLInputElement, InputProps>(
-  function Input({ inputSize = 'md', error = false, fullWidth = false, className, ...rest }, ref) {
-    const classNames = [
-      styles['base'],
-      styles[inputSize],
-      error ? styles['error'] : '',
-      fullWidth ? styles['fullWidth'] : '',
-      className,
-    ].filter(Boolean).join(' ');
+export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
+  { inputSize = 'md', error = false, fullWidth = false, className, ...rest },
+  ref,
+) {
+  const classNames = [
+    styles['base'],
+    styles[inputSize],
+    error ? styles['error'] : '',
+    fullWidth ? styles['fullWidth'] : '',
+    className,
+  ]
+    .filter(Boolean)
+    .join(' ');
 
-    return <input ref={ref} className={classNames} {...rest} />;
-  },
-);
+  return <input ref={ref} className={classNames} {...rest} />;
+});

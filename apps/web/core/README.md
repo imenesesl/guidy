@@ -47,18 +47,18 @@ pnpm lint
 
 ## Tech Stack
 
-| Tool | Purpose |
-|------|---------|
-| Rspack | Bundler |
-| React 19 | UI |
-| TypeScript (strict) | Language |
-| ESLint 10 (flat config) | Linting |
-| TanStack Router | Navigation |
-| TanStack Query | Data fetching |
-| React Hook Form + Valibot | Forms + validation |
-| react-i18next | Internationalization |
-| @guidy/ds | Design system |
-| Vitest | Tests |
+| Tool                      | Purpose              |
+| ------------------------- | -------------------- |
+| Rspack                    | Bundler              |
+| React 19                  | UI                   |
+| TypeScript (strict)       | Language             |
+| ESLint 10 (flat config)   | Linting              |
+| TanStack Router           | Navigation           |
+| TanStack Query            | Data fetching        |
+| React Hook Form + Valibot | Forms + validation   |
+| react-i18next             | Internationalization |
+| @guidy/ds                 | Design system        |
+| Vitest                    | Tests                |
 
 ## Structure
 

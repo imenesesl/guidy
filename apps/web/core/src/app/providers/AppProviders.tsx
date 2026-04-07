@@ -20,9 +20,7 @@ const defaultQueryClient = new QueryClient({
 export function AppProviders({ children, queryClient }: AppProvidersProps): React.JSX.Element {
   return (
     <QueryClientProvider client={queryClient ?? defaultQueryClient}>
-      <I18nextProvider i18n={i18n}>
-        {children}
-      </I18nextProvider>
+      <I18nextProvider i18n={i18n}>{children}</I18nextProvider>
     </QueryClientProvider>
   );
 }

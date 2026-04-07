@@ -24,7 +24,9 @@ export function Button({
     styles[size],
     fullWidth ? styles['fullWidth'] : '',
     className,
-  ].filter(Boolean).join(' ');
+  ]
+    .filter(Boolean)
+    .join(' ');
 
   return (
     <button className={classNames} {...rest}>
@@ -32,3 +34,5 @@ export function Button({
     </button>
   );
 }
+// test
+// test

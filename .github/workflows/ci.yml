@@ -39,6 +39,9 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Prettier format check
+        run: pnpm format:check
+
       - name: ESLint (includes max-lines 150)
         run: pnpm -r --if-present run lint
 
@@ -48,8 +51,8 @@ jobs:
       - name: Typecheck
         run: pnpm typecheck
 
-      - name: Tests
-        run: pnpm test
+      - name: Tests with coverage (80% threshold)
+        run: pnpm test:coverage
 
       - name: File size check (150 lines max)
         run: |

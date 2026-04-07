@@ -1,7 +1,14 @@
 export { colors } from './colors';
 export type { Colors } from './colors';
 
-export { fontFamily, fontSize, fontWeight, lineHeight, letterSpacing, textStyles } from './typography';
+export {
+  fontFamily,
+  fontSize,
+  fontWeight,
+  lineHeight,
+  letterSpacing,
+  textStyles,
+} from './typography';
 export type { TextStyle } from './typography';
 
 export { spacing } from './spacing';

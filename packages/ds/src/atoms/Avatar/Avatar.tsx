@@ -17,7 +17,13 @@ function getInitials(name: string): string {
     .slice(0, 2);
 }
 
-export function Avatar({ size = 'md', name, src, className, ...rest }: AvatarProps): React.JSX.Element {
+export function Avatar({
+  size = 'md',
+  name,
+  src,
+  className,
+  ...rest
+}: AvatarProps): React.JSX.Element {
   const sizeClass = styles[size];
 
   if (src) {

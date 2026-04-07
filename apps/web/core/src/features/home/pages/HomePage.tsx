@@ -12,7 +12,9 @@ export function HomePage(): React.JSX.Element {
           <Avatar name="Guidy" size="lg" />
           <div>
             <Text variant="heading-2">{t('home.title')}</Text>
-            <Text variant="body-large" color="secondary">{t('home.subtitle')}</Text>
+            <Text variant="body-large" color="secondary">
+              {t('home.subtitle')}
+            </Text>
           </div>
         </div>
 

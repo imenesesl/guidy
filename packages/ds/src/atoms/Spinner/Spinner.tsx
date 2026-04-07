@@ -13,7 +13,12 @@ export function Spinner({ size = 'md', className }: SpinnerProps): React.JSX.Ele
   return (
     <svg className={classNames} viewBox="0 0 24 24" fill="none">
       <circle cx="12" cy="12" r="10" className={styles['track']} strokeWidth="3" />
-      <path d="M12 2a10 10 0 0 1 10 10" className={styles['indicator']} strokeWidth="3" strokeLinecap="round" />
+      <path
+        d="M12 2a10 10 0 0 1 10 10"
+        className={styles['indicator']}
+        strokeWidth="3"
+        strokeLinecap="round"
+      />
     </svg>
   );
 }

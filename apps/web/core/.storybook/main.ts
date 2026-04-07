@@ -6,6 +6,7 @@ const root = import.meta.dirname;
 const config: StorybookConfig = {
   stories: ['../src/**/*.stories.@(ts|tsx)'],
   framework: '@storybook/react-vite',
+  docs: { autodocs: 'tag' },
   viteFinal: async (viteConfig) => {
     viteConfig.publicDir = false;
     viteConfig.resolve ??= {};

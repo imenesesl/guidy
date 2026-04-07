@@ -1,3 +1,8 @@
+/**
+ * Programmatic access to design tokens.
+ * Source of truth: packages/ds/src/styles/tokens.css
+ * Keep in sync with CSS custom properties (--ds-*).
+ */
 export const shadows = {
   none: 'none',
   sm: '0 1px 2px rgba(0, 0, 0, 0.3)',

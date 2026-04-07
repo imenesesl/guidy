@@ -16,18 +16,30 @@ describe('IconButton', () => {
 
   it('calls onClick when clicked', async () => {
     const onClick = vi.fn();
-    render(<IconButton label="Action" onClick={onClick}>+</IconButton>);
+    render(
+      <IconButton label="Action" onClick={onClick}>
+        +
+      </IconButton>,
+    );
     await userEvent.click(screen.getByLabelText('Action'));
     expect(onClick).toHaveBeenCalledOnce();
   });
 
   it('applies size class', () => {
-    render(<IconButton label="Big" size="lg">B</IconButton>);
+    render(
+      <IconButton label="Big" size="lg">
+        B
+      </IconButton>,
+    );
     expect(screen.getByLabelText('Big')).toHaveClass('lg');
   });
 
   it('is disabled when disabled prop is true', () => {
-    render(<IconButton label="Disabled" disabled>D</IconButton>);
+    render(
+      <IconButton label="Disabled" disabled>
+        D
+      </IconButton>,
+    );
     expect(screen.getByLabelText('Disabled')).toBeDisabled();
   });
 });

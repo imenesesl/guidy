@@ -23,7 +23,10 @@ The DS uses **Roboto** as its only font family. Every app consuming `@guidy/ds` 
 ```html
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet" />
+<link
+  href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap"
+  rel="stylesheet"
+/>
 ```
 
 Required weights: 400 (regular), 500 (medium), 700 (bold), 900 (black).

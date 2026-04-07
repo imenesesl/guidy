@@ -67,14 +67,16 @@ Create a simple `index.html` that links to each Storybook:
 ```html
 <!DOCTYPE html>
 <html lang="en">
-<head><title>Guidy Storybooks</title></head>
-<body>
-  <h1>Guidy Design System</h1>
-  <ul>
-    <li><a href="./ds/">Design System (DS)</a></li>
-    <li><a href="./core/">Core App Components</a></li>
-  </ul>
-</body>
+  <head>
+    <title>Guidy Storybooks</title>
+  </head>
+  <body>
+    <h1>Guidy Design System</h1>
+    <ul>
+      <li><a href="./ds/">Design System (DS)</a></li>
+      <li><a href="./core/">Core App Components</a></li>
+    </ul>
+  </body>
 </html>
 ```
 

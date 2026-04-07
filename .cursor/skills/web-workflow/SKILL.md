@@ -35,25 +35,31 @@ Architect → Staff Frontend → Staff Design Engineer → Senior Engineer → Q
 ## Work Plan: <Feature Name>
 
 ### Components
+
 - atoms: [list]
 - molecules: [list]
 - organisms: [list]
 - pages: [list]
 
 ### Hooks
+
 - [list with purpose]
 
 ### Services
+
 - [list with interfaces]
 
 ### Schemas
+
 - [list of Valibot schemas]
 
 ### Dependencies
+
 - External: [packages needed]
 - Internal: [shared modules used]
 
 ### DI Map
+
 - [what gets injected into what]
 ```
 
@@ -104,21 +110,26 @@ If validation fails, iterate until it passes.
 ## Component Inventory: <Feature Name>
 
 ### Existing (reuse)
+
 - Button (atoms) — no changes
 - FormField (molecules) — no changes
 
 ### New
+
 - StatusBadge (atoms) — [variants: success, error, pending]
 - DataCard (molecules) — [props: title, value, trend]
 
 ### Updated
+
 - Select (atoms) — added `searchable` prop
 
 ### New Tokens
+
 - --color-status-success: ...
 - --color-status-error: ...
 
 ### Stories Created/Updated
+
 - StatusBadge.stories.tsx
 - DataCard.stories.tsx
 - Select.stories.tsx (updated)
@@ -258,6 +269,7 @@ Ready to push.
 ```
 
 If ANY check fails:
+
 - Identify the responsible role.
 - Send back for fixing.
 - Re-run the audit after fixes.

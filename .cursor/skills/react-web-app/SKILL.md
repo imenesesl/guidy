@@ -11,19 +11,19 @@ description: >-
 
 ## Tech Stack
 
-| Tool | Purpose |
-|------|---------|
-| Rspack | Bundler |
-| React 19 (latest) | UI library — always 19.x, never older |
-| TypeScript (strict) | Language |
+| Tool                    | Purpose                                    |
+| ----------------------- | ------------------------------------------ |
+| Rspack                  | Bundler                                    |
+| React 19 (latest)       | UI library — always 19.x, never older      |
+| TypeScript (strict)     | Language                                   |
 | ESLint 10 (flat config) | Linting — always 10.x with @eslint/js 10.x |
-| TanStack Router | Navigation |
-| TanStack Query | Server state / data fetching |
-| React Hook Form | Form management |
-| Valibot | Schema validation |
-| Storybook | Component docs, visual tests |
-| Vitest | Unit and integration tests |
-| react-i18next | Internationalization |
+| TanStack Router         | Navigation                                 |
+| TanStack Query          | Server state / data fetching               |
+| React Hook Form         | Form management                            |
+| Valibot                 | Schema validation                          |
+| Storybook               | Component docs, visual tests               |
+| Vitest                  | Unit and integration tests                 |
+| react-i18next           | Internationalization                       |
 
 ## Creating a New Web App
 
@@ -86,25 +86,21 @@ import js from '@eslint/js';
 import tseslint from 'typescript-eslint';
 import globals from 'globals';
 
-export default tseslint.config(
-  js.configs.recommended,
-  ...tseslint.configs.strictTypeChecked,
-  {
-    languageOptions: {
-      globals: globals.browser,
-      parserOptions: {
-        projectService: true,
-        tsconfigRootDir: import.meta.dirname,
-      },
-    },
-    rules: {
-      '@typescript-eslint/no-explicit-any': 'error',
-      '@typescript-eslint/no-unused-vars': 'error',
-      '@typescript-eslint/explicit-function-return-type': 'warn',
-      '@typescript-eslint/consistent-type-imports': 'error',
+export default tseslint.config(js.configs.recommended, ...tseslint.configs.strictTypeChecked, {
+  languageOptions: {
+    globals: globals.browser,
+    parserOptions: {
+      projectService: true,
+      tsconfigRootDir: import.meta.dirname,
     },
   },
-);
+  rules: {
+    '@typescript-eslint/no-explicit-any': 'error',
+    '@typescript-eslint/no-unused-vars': 'error',
+    '@typescript-eslint/explicit-function-return-type': 'warn',
+    '@typescript-eslint/consistent-type-imports': 'error',
+  },
+});
 ```
 
 ### Step 5 — Set up project structure
@@ -211,6 +207,7 @@ Button/
 ```
 
 Rules:
+
 - **NEVER use inline styles** (`style={{ }}`). Always `className`.
 - Import as `import styles from './Button.module.css';`.
 - Use CSS custom properties (`var(--ds-*)`) inside `.module.css` for token values.
@@ -220,6 +217,7 @@ Rules:
 ## Key Rules Reference
 
 All web app code must follow these rules:
+
 - `react-web-standards.mdc` — coding standards (includes CSS Modules mandate)
 - `design-system-standards.mdc` — design system (no inline styles, tokens only)
 - `web-quality-gate.mdc` — quality checks (inline style scan)

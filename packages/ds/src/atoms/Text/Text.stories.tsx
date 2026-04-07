@@ -8,17 +8,21 @@ const meta: Meta<typeof Text> = {
     variant: {
       control: 'select',
       options: [
-        'heading-1', 'heading-2', 'heading-3', 'heading-4',
-        'heading-5', 'body-large', 'body', 'body-small',
-        'caption', 'overline',
+        'heading-1',
+        'heading-2',
+        'heading-3',
+        'heading-4',
+        'heading-5',
+        'body-large',
+        'body',
+        'body-small',
+        'caption',
+        'overline',
       ],
     },
     color: {
       control: 'select',
-      options: [
-        'primary', 'secondary', 'subdued', 'disabled',
-        'brand', 'error', 'inverse',
-      ],
+      options: ['primary', 'secondary', 'subdued', 'disabled', 'brand', 'error', 'inverse'],
     },
   },
 };

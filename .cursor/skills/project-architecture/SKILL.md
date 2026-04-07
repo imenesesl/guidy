@@ -34,12 +34,12 @@ Run `ls apps/web apps/mobile apps/server packages` and verify the current struct
 
 Place it in the correct location based on type:
 
-| Type | Command |
-|------|---------|
-| Web | `mkdir -p apps/web/<app-name>` |
-| Mobile | `flutter create apps/mobile/<app-name>` |
-| Server | `mkdir -p apps/server/<service-name>` |
-| Package | `mkdir -p packages/<package-name>` |
+| Type    | Command                                 |
+| ------- | --------------------------------------- |
+| Web     | `mkdir -p apps/web/<app-name>`          |
+| Mobile  | `flutter create apps/mobile/<app-name>` |
+| Server  | `mkdir -p apps/server/<service-name>`   |
+| Package | `mkdir -p packages/<package-name>`      |
 
 Use `kebab-case` for all names.
 
@@ -61,15 +61,19 @@ Create `README.md` inside the new directory with this template:
 ## Getting Started
 
 ### Prerequisites
+
 - <list dependencies>
 
 ### Install
+
 <install command>
 
 ### Run
+
 <run command>
 
 ### Test
+
 <test command>
 ```
 
@@ -80,6 +84,7 @@ Update the README in the parent directory (`apps/web/README.md`, `apps/mobile/RE
 ### Step 6 — Update root README
 
 Update `/README.md`:
+
 1. Add the new entry to the structure tree.
 2. Add a row to the conventions table if it introduces a new pattern.
 

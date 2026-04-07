@@ -9,7 +9,13 @@ export interface IconButtonProps extends ButtonHTMLAttributes<HTMLButtonElement>
   children: ReactNode;
 }
 
-export function IconButton({ size = 'md', label, className, children, ...rest }: IconButtonProps): React.JSX.Element {
+export function IconButton({
+  size = 'md',
+  label,
+  className,
+  children,
+  ...rest
+}: IconButtonProps): React.JSX.Element {
   const classNames = [styles['base'], styles[size], className].filter(Boolean).join(' ');
 
   return (

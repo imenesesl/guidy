@@ -7,18 +7,46 @@
     "build:core": "pnpm --filter @guidy/core build",
     "lint": "pnpm -r --if-present run lint && pnpm lint:css",
     "lint:css": "stylelint \"packages/**/*.module.css\" \"apps/**/*.module.css\"",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
     "typecheck": "pnpm -r --if-present run typecheck",
     "test": "pnpm -r --if-present run test",
+    "test:coverage": "pnpm -r --if-present run test -- --coverage",
     "storybook:ds": "pnpm --filter @guidy/ds storybook",
     "storybook:core": "pnpm --filter @guidy/core storybook",
     "storybook:build:ds": "pnpm --filter @guidy/ds storybook:build",
     "storybook:build:core": "pnpm --filter @guidy/core storybook:build",
     "storybook:build": "pnpm storybook:build:ds && pnpm storybook:build:core",
-    "quality-gate": "bash tools/scripts/audit.sh"
+    "quality-gate": "bash tools/scripts/audit.sh",
+    "prepare": "husky"
+  },
+  "lint-staged": {
+    "packages/*/src/**/*.{ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "apps/**/src/**/*.{ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,md,yml,yaml}": [
+      "prettier --write"
+    ],
+    "**/*.module.css": [
+      "stylelint --fix"
+    ]
   },
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.2.0",
+    "globals": "^17.4.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.4.0",
+    "prettier": "^3.8.1",
     "stylelint": "^17.6.0",
     "stylelint-config-standard": "^40.0.0",
-    "stylelint-declaration-strict-value": "^1.11.1"
+    "stylelint-declaration-strict-value": "^1.11.1",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.58.0"
   }
 }

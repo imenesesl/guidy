@@ -25,13 +25,13 @@ guidy/
 
 ## Conventions
 
-| Area | Naming | Example |
-|------|--------|---------|
-| Web app | `apps/web/<app-name>` | `apps/web/core` |
-| Mobile app | `apps/mobile/<app-name>` | `apps/mobile/customer-app` |
-| Server | `apps/server/<service-name>` | `apps/server/auth-api` |
-| Design system | `packages/ds` | `packages/ds` |
-| Shared package | `packages/<package-name>` | `packages/shared` |
+| Area           | Naming                       | Example                    |
+| -------------- | ---------------------------- | -------------------------- |
+| Web app        | `apps/web/<app-name>`        | `apps/web/core`            |
+| Mobile app     | `apps/mobile/<app-name>`     | `apps/mobile/customer-app` |
+| Server         | `apps/server/<service-name>` | `apps/server/auth-api`     |
+| Design system  | `packages/ds`                | `packages/ds`              |
+| Shared package | `packages/<package-name>`    | `packages/shared`          |
 
 ## Quick Start
 

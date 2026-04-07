@@ -8,9 +8,13 @@ const meta: Meta<typeof Divider> = {
   decorators: [
     (Story) => (
       <div>
-        <Text variant="body" color="primary">Content above</Text>
+        <Text variant="body" color="primary">
+          Content above
+        </Text>
         <Story />
-        <Text variant="body" color="primary">Content below</Text>
+        <Text variant="body" color="primary">
+          Content below
+        </Text>
       </div>
     ),
   ],

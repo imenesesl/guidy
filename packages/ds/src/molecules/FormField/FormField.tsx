@@ -9,7 +9,13 @@ export interface FormFieldProps {
   children: ReactNode;
 }
 
-export function FormField({ label, error, hint, required, children }: FormFieldProps): React.JSX.Element {
+export function FormField({
+  label,
+  error,
+  hint,
+  required,
+  children,
+}: FormFieldProps): React.JSX.Element {
   return (
     <div className={styles['container']}>
       <label className={styles['label']}>

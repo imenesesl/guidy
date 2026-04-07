@@ -8,7 +8,12 @@ export interface CardProps extends HTMLAttributes<HTMLDivElement> {
   children: ReactNode;
 }
 
-export function Card({ variant = 'elevated', className, children, ...rest }: CardProps): React.JSX.Element {
+export function Card({
+  variant = 'elevated',
+  className,
+  children,
+  ...rest
+}: CardProps): React.JSX.Element {
   const classNames = [styles[variant], className].filter(Boolean).join(' ');
 
   return (

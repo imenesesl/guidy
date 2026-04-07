@@ -56,14 +56,10 @@ export default defineConfig({
     ],
   },
   plugins: [
-    new rspack.HtmlRspackPlugin({
-      template: './public/index.html',
-    }),
+    new rspack.HtmlRspackPlugin({ template: './public/index.html' }),
     isDev && new RefreshPlugin(),
   ].filter(Boolean),
-  experiments: {
-    css: true,
-  },
+  experiments: { css: true },
   devServer: {
     port: 3000,
     hot: true,

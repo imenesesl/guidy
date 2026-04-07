@@ -1,9 +1,37 @@
 import type { HTMLAttributes, ReactNode } from 'react';
 import styles from './Text.module.css';
 
-export type TextVariant = 'heading-1' | 'heading-2' | 'heading-3' | 'heading-4' | 'heading-5' | 'body-large' | 'body' | 'body-small' | 'caption' | 'overline';
-export type TextColor = 'primary' | 'secondary' | 'subdued' | 'disabled' | 'brand' | 'error' | 'inverse';
-type TextElement = 'p' | 'span' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'label' | 'strong' | 'em';
+export type TextVariant =
+  | 'heading-1'
+  | 'heading-2'
+  | 'heading-3'
+  | 'heading-4'
+  | 'heading-5'
+  | 'body-large'
+  | 'body'
+  | 'body-small'
+  | 'caption'
+  | 'overline';
+export type TextColor =
+  | 'primary'
+  | 'secondary'
+  | 'subdued'
+  | 'disabled'
+  | 'brand'
+  | 'error'
+  | 'inverse';
+type TextElement =
+  | 'p'
+  | 'span'
+  | 'h1'
+  | 'h2'
+  | 'h3'
+  | 'h4'
+  | 'h5'
+  | 'h6'
+  | 'label'
+  | 'strong'
+  | 'em';
 
 export interface TextProps extends HTMLAttributes<HTMLElement> {
   variant?: TextVariant;
@@ -19,10 +47,10 @@ const variantToClass: Record<TextVariant, string> = {
   'heading-4': 'heading4',
   'heading-5': 'heading5',
   'body-large': 'bodyLarge',
-  'body': 'body',
+  body: 'body',
   'body-small': 'bodySmall',
-  'caption': 'caption',
-  'overline': 'overline',
+  caption: 'caption',
+  overline: 'overline',
 };
 
 const colorToClass: Record<TextColor, string> = {
@@ -42,10 +70,10 @@ const defaultElementMap: Partial<Record<TextVariant, TextElement>> = {
   'heading-4': 'h4',
   'heading-5': 'h5',
   'body-large': 'p',
-  'body': 'p',
+  body: 'p',
   'body-small': 'p',
-  'caption': 'span',
-  'overline': 'span',
+  caption: 'span',
+  overline: 'span',
 };
 
 export function Text({
@@ -61,7 +89,9 @@ export function Text({
     styles[variantToClass[variant]],
     color ? styles[colorToClass[color]] : '',
     className,
-  ].filter(Boolean).join(' ');
+  ]
+    .filter(Boolean)
+    .join(' ');
 
   return (
     <Element className={classNames} {...rest}>

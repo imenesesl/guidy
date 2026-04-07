@@ -8,7 +8,12 @@ export interface BadgeProps extends HTMLAttributes<HTMLSpanElement> {
   children: ReactNode;
 }
 
-export function Badge({ variant = 'default', className, children, ...rest }: BadgeProps): React.JSX.Element {
+export function Badge({
+  variant = 'default',
+  className,
+  children,
+  ...rest
+}: BadgeProps): React.JSX.Element {
   const classNames = [styles[variant], className].filter(Boolean).join(' ');
 
   return (

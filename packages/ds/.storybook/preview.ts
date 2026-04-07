@@ -6,12 +6,7 @@ import './storybook.css';
 
 const preview: Preview = {
   decorators: [
-    (Story) =>
-      createElement(
-        'div',
-        { className: 'storybook-canvas' },
-        createElement(Story),
-      ),
+    (Story) => createElement('div', { className: 'storybook-canvas' }, createElement(Story)),
   ],
   initialGlobals: {
     backgrounds: { value: 'dark' },
