@@ -1,0 +1,28 @@
+.page {
+  min-height: var(--ds-size-screen-h);
+  background-color: var(--ds-color-bg-base);
+  padding: var(--ds-spacing-8);
+}
+
+.container {
+  max-width: var(--ds-layout-max-width-md);
+  margin: var(--ds-spacing-0) auto;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: var(--ds-spacing-4);
+  margin-bottom: var(--ds-spacing-6);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(var(--ds-layout-grid-min-col), 1fr));
+  gap: var(--ds-spacing-4);
+}
+
+.actions {
+  display: flex;
+  gap: var(--ds-spacing-3);
+}

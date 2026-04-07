@@ -1,0 +1,14 @@
+html,
+body {
+  background-color: var(--ds-color-bg-base) !important;
+  margin: var(--ds-spacing-0);
+  padding: var(--ds-spacing-0);
+}
+
+.storybook-canvas {
+  background-color: var(--ds-color-bg-base);
+  color: var(--ds-color-text-primary);
+  font-family: var(--ds-font-family-sans);
+  min-height: var(--ds-size-screen-h);
+  padding: var(--ds-spacing-4);
+}

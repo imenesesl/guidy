@@ -7,6 +7,7 @@ Each subdirectory here is an independent web application.
 ```
 apps/web/
 ├── core/             # Main Guidy web app (Rspack + React + TS)
+├── landing/          # Public-facing landing page (Rspack + React + TS)
 └── ...
 ```
 

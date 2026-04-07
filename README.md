@@ -8,7 +8,8 @@ Monorepo for all Guidy applications and services.
 guidy/
 ├── apps/
 │   ├── web/
-│   │   └── core/              # Main web app (Rspack + React + TypeScript)
+│   │   ├── core/              # Main web app (Rspack + React + TypeScript)
+│   │   └── landing/           # Public-facing landing page (Rspack + React + TypeScript)
 │   ├── mobile/                # Mobile applications (Flutter)
 │   └── server/                # Backend services
 │

@@ -4,7 +4,9 @@
   "private": true,
   "scripts": {
     "dev:core": "pnpm --filter @guidy/core dev",
+    "dev:landing": "pnpm --filter @guidy/landing dev",
     "build:core": "pnpm --filter @guidy/core build",
+    "build:landing": "pnpm --filter @guidy/landing build",
     "lint": "pnpm -r --if-present run lint && pnpm lint:css",
     "lint:css": "stylelint \"packages/**/*.module.css\" \"apps/**/*.module.css\"",
     "format": "prettier --write .",
@@ -14,9 +16,11 @@
     "test:coverage": "pnpm -r --if-present run test -- --coverage",
     "storybook:ds": "pnpm --filter @guidy/ds storybook",
     "storybook:core": "pnpm --filter @guidy/core storybook",
+    "storybook:landing": "pnpm --filter @guidy/landing storybook",
     "storybook:build:ds": "pnpm --filter @guidy/ds storybook:build",
     "storybook:build:core": "pnpm --filter @guidy/core storybook:build",
-    "storybook:build": "pnpm storybook:build:ds && pnpm storybook:build:core",
+    "storybook:build:landing": "pnpm --filter @guidy/landing storybook:build",
+    "storybook:build": "pnpm storybook:build:ds && pnpm storybook:build:core && pnpm storybook:build:landing",
     "quality-gate": "bash tools/scripts/audit.sh",
     "prepare": "husky"
   },

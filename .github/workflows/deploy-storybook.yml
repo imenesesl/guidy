@@ -54,11 +54,15 @@ jobs:
       - name: Build Storybook (Core)
         run: pnpm storybook:build:core
 
+      - name: Build Storybook (Landing)
+        run: pnpm storybook:build:landing
+
       - name: Assemble deployment
         run: |
-          mkdir -p deploy/ds deploy/core
+          mkdir -p deploy/ds deploy/core deploy/landing
           cp -r packages/ds/storybook-static/* deploy/ds/
           cp -r apps/web/core/storybook-static/* deploy/core/
+          cp -r apps/web/landing/storybook-static/* deploy/landing/
           cp .github/pages/index.html deploy/index.html
 
       - name: Setup Pages

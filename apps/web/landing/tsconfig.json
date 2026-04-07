@@ -1,0 +1,15 @@
+{
+  "extends": "../../../tsconfig.base.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@app/*": ["./src/app/*"],
+      "@features/*": ["./src/features/*"],
+      "@shared/*": ["./src/shared/*"],
+      "@i18n/*": ["./src/i18n/*"],
+      "@guidy/ds": ["../../packages/ds/src"],
+      "@guidy/ds/*": ["../../packages/ds/src/*"]
+    }
+  },
+  "include": ["src", "vitest.config.ts"]
+}

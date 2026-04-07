@@ -76,8 +76,14 @@ jobs:
       - name: Build core app
         run: pnpm build:core
 
+      - name: Build landing app
+        run: pnpm build:landing
+
       - name: Build Storybook (DS)
         run: pnpm storybook:build:ds
 
       - name: Build Storybook (Core)
         run: pnpm storybook:build:core
+
+      - name: Build Storybook (Landing)
+        run: pnpm storybook:build:landing
