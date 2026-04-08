@@ -6,6 +6,7 @@ import { i18n } from '@i18n/index';
 interface ErrorBoundaryProps {
   children: ReactNode;
   fallback?: ReactNode;
+  onError?: (error: Error, componentStack?: string) => void;
 }
 
 interface ErrorBoundaryState {
@@ -24,7 +25,7 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
   }
 
   componentDidCatch(error: Error, info: ErrorInfo): void {
-    console.error('[ErrorBoundary]', error, info.componentStack);
+    this.props.onError?.(error, info.componentStack ?? undefined);
   }
 
   private handleReset = (): void => {

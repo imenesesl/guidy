@@ -5,7 +5,9 @@ import { GuidyMascot } from './GuidyMascot';
 describe('GuidyMascot', () => {
   it('renders the mascot SVG', () => {
     render(<GuidyMascot />);
-    expect(screen.getByLabelText('Guidy mascot')).toBeInTheDocument();
+    expect(
+      screen.getByLabelText('Guidy mascot walking with a book and a phone'),
+    ).toBeInTheDocument();
   });
 
   it('renders as an img role', () => {

@@ -1,7 +1,7 @@
 # Patterns
 
-> Last updated: 2026-04-07
-> Updated by: Brain initial analysis
+> Last updated: 2026-04-08
+> Updated by: Brain retrospective — full debt resolution
 
 ## Component Patterns
 
@@ -163,6 +163,31 @@ No `vi.mock` used — tests rely on real i18n and global IO mock.
 ### Hook Tests
 
 `renderHook` + `act` for state changes.
+
+## Component Extraction Pattern
+
+When a component approaches the 150-line limit:
+
+1. Identify logical groups within the component (e.g., SVG body parts, mapping objects).
+2. Extract each group to a separate file in the same directory.
+3. Internal sub-components receive configuration via props (e.g., `walkCycle` transition).
+4. Each extracted component gets its own `.test.tsx` and `.stories.tsx`.
+5. Update ESLint overrides if the sub-components share the parent's exemptions.
+
+Example: `GuidyMascot` → `MascotHead`, `MascotLegs`, `MascotArms` (each with walkCycle prop).
+Example: `Text` → `Text.mappings.ts` (static mapping objects extracted).
+
+## Injectable Error Handling (DI)
+
+ErrorBoundary accepts an optional `onError` callback:
+
+```tsx
+<ErrorBoundary onError={(error, stack) => logger.report(error, stack)}>
+  <App />
+</ErrorBoundary>
+```
+
+No default behavior when omitted. Callers inject their error handler.
 
 ## ESLint Conventions
 

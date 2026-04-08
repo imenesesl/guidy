@@ -58,7 +58,12 @@ export default tseslint.config(
     },
   },
   {
-    files: ['**/GuidyMascot/GuidyMascot.tsx', '**/GuidyMascot/MascotHead.tsx'],
+    files: [
+      '**/GuidyMascot/GuidyMascot.tsx',
+      '**/GuidyMascot/MascotHead.tsx',
+      '**/GuidyMascot/MascotLegs.tsx',
+      '**/GuidyMascot/MascotArms.tsx',
+    ],
     rules: {
       'no-restricted-syntax': 'off',
     },

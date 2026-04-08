@@ -64,4 +64,15 @@ describe('ErrorBoundary', () => {
     await user.click(screen.getByText('Try again'));
     expect(screen.getByText('Recovered')).toBeInTheDocument();
   });
+
+  it('calls onError callback when error is caught', () => {
+    const onError = vi.fn();
+    render(
+      <ErrorBoundary onError={onError}>
+        <ThrowingComponent />
+      </ErrorBoundary>,
+    );
+    expect(onError).toHaveBeenCalledWith(expect.any(Error), expect.any(String));
+    expect(onError.mock.calls[0]?.[0]).toBeInstanceOf(Error);
+  });
 });

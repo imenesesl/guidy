@@ -1,7 +1,7 @@
 # Architecture Decision Records
 
-> Last updated: 2026-04-07
-> Updated by: Brain initial analysis
+> Last updated: 2026-04-08
+> Updated by: Brain retrospective — full debt resolution
 
 ## ADR-001: Monorepo with pnpm Workspaces
 
@@ -82,3 +82,27 @@
 **Context**: 9 roles in the chain lack persistent shared knowledge. Each task starts without accumulated context.
 **Decision**: Create Brain as a meta-role wrapping the chain. Brain maintains `.cursor/context/` files, runs standups before tasks, and retrospectives after.
 **Consequence**: All roles read context files before starting. Knowledge persists across tasks. Loop ensures completeness.
+
+## ADR-011: Injectable Error Handling in ErrorBoundary
+
+**Date**: 2026-04-08
+**Status**: Accepted
+**Context**: Both ErrorBoundary classes used `console.error` directly. This tightly couples error reporting to the console.
+**Decision**: Replace `console.error` with an optional `onError` callback prop. Callers inject their error handler (DI pattern). No default behavior when callback is omitted.
+**Consequence**: Error reporting is injectable. When a logging service is added, only the `onError` prop value at the App.tsx level needs to change. Tests verify the callback is called.
+
+## ADR-012: SVG Sub-component Extraction Pattern
+
+**Date**: 2026-04-08
+**Status**: Accepted
+**Context**: GuidyMascot.tsx was at 119/150 lines. Complex SVG animations with multiple body parts.
+**Decision**: Extract logical SVG groups (legs, arms) into separate components that accept a `walkCycle` transition prop. Internal components get their own tests and stories.
+**Consequence**: Main component dropped to 62 lines (88 lines headroom). Each sub-component is independently testable and viewable in Storybook. ESLint `no-restricted-syntax` override extended to new files.
+
+## ADR-013: Text Mapping Extraction
+
+**Date**: 2026-04-08
+**Status**: Accepted
+**Context**: Text.tsx was at 101/150 lines. Most content was static mapping objects (variant-to-class, color-to-class, default-element).
+**Decision**: Extract the three mapping constants to `Text.mappings.ts`. Keep type exports in `Text.tsx` since they're part of the public API.
+**Consequence**: Text.tsx dropped to 60 lines (90 lines headroom). Mappings are independently importable if needed.

@@ -1,7 +1,7 @@
 # Component Inventory
 
-> Last updated: 2026-04-07
-> Updated by: Brain initial analysis
+> Last updated: 2026-04-08
+> Updated by: Brain retrospective — full debt resolution
 
 ## Design System (`@guidy/ds`)
 
@@ -77,8 +77,10 @@ Importable from `@guidy/ds/tokens`:
 | StartFreeSection | Organism  | CTA section with Blobs and Rocket icon                   |
 | Footer           | Organism  | Tagline and copyright                                    |
 | HomePage         | Page      | Composes all organisms                                   |
-| GuidyMascot      | Component | Inline SVG mascot with walking animation                 |
+| GuidyMascot      | Component | Main mascot composition (uses MascotHead, Legs, Arms)    |
 | MascotHead       | Component | SVG head sub-component (eyes, cap, cheeks)               |
+| MascotLegs       | Component | SVG legs with walk cycle animation                       |
+| MascotArms       | Component | SVG arms with book (left) and phone (right)              |
 
 ### Hooks (App-level)
 

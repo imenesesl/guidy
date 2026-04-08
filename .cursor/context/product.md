@@ -1,7 +1,7 @@
 # Product Knowledge
 
-> Last updated: 2026-04-07
-> Updated by: Brain initial analysis
+> Last updated: 2026-04-08
+> Updated by: Brain workflow run
 
 ## What is Guidy
 

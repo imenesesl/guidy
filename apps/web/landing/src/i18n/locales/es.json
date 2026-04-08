@@ -1,7 +1,11 @@
 {
   "header": {
+    "brand": "Guidy",
     "login": "Entrar",
     "change_lang": "Cambiar idioma"
+  },
+  "mascot": {
+    "aria_label": "Mascota Guidy caminando con un libro y un celular"
   },
   "hero": {
     "title": "Tu clase, pero con superpoderes",

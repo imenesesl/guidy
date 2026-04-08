@@ -1,7 +1,7 @@
 # Architecture
 
-> Last updated: 2026-04-07
-> Updated by: Brain initial analysis
+> Last updated: 2026-04-08
+> Updated by: Brain workflow run
 
 ## Monorepo Structure
 
@@ -17,7 +17,10 @@ guidy/
 │   └── ds/             @guidy/ds — Design System (tokens, atoms, molecules)
 ├── tools/scripts/      Automation: audit.sh, dry-audit.sh, assemble-gh-pages.sh
 ├── docs/               Architecture docs (placeholder)
-└── .cursor/            Rules, skills, context (this directory)
+├── .cursor/
+│   ├── rules/          14 rules (brain, copywriter, dead-code-auditor, design-system, devops, dry-auditor, monorepo, motion-design, product, qa, react-web, structure-auditor, web-quality-gate, web-roles)
+│   ├── skills/         6 skills (brain, devops-pipeline, motion-design, project-architecture, react-web-app, web-workflow)
+│   └── context/        7 knowledge areas (architecture, patterns, component-inventory, tech-debt, decisions, metrics, product)
 ```
 
 ## Workspace Packages (active)

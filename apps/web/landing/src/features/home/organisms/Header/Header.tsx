@@ -12,7 +12,7 @@ export function Header(): React.JSX.Element {
     <header className={styles['header']}>
       <div className={styles['inner']}>
         <Text variant="heading-5" color="brand">
-          Guidy
+          {t('header.brand')}
         </Text>
         <div className={styles['actions']}>
           <Button

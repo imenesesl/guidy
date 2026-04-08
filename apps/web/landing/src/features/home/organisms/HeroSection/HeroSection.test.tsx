@@ -30,6 +30,8 @@ describe('HeroSection', () => {
 
   it('renders the Guidy mascot', () => {
     render(<HeroSection />);
-    expect(screen.getByLabelText('Guidy mascot')).toBeInTheDocument();
+    expect(
+      screen.getByLabelText('Guidy mascot walking with a book and a phone'),
+    ).toBeInTheDocument();
   });
 });
