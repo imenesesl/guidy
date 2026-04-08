@@ -2,7 +2,7 @@
 name: web-workflow
 description: >-
   End-to-end role-based workflow for developing web features. Orchestrates
-  Architect, Staff Frontend, Staff Design Engineer, DRY Auditor, Motion Designer,
+  Brain, Architect, Staff Frontend, Staff Design Engineer, DRY Auditor, Motion Designer,
   Senior Engineer, QA, Auditor, and DevOps roles. Use when building features,
   implementing changes, or executing any web development task in apps/web/.
 ---
@@ -11,11 +11,67 @@ description: >-
 
 ## Overview
 
-Every web feature goes through 9 roles in sequence. Each role produces an output that feeds the next.
+Every web feature goes through Brain's knowledge loop wrapping 9 execution roles. Brain runs before and after the chain.
 
 ```
-Architect → Staff Frontend → Staff Design Engineer → DRY Auditor → Motion Designer → Senior Engineer → QA → Auditor → DevOps
+Brain (Pre-analysis + Standup)
+  → Architect → Staff Frontend → Staff Design Engineer → DRY Auditor → Motion Designer → Senior Engineer → QA → Auditor → DevOps
+Brain (Retrospective + Knowledge Update)
 ```
+
+## Phase 0 — Brain Pre-analysis + Standup
+
+**Goal**: Gather context, run a standup across all roles, produce a Task Brief.
+
+### Actions
+
+1. Read ALL `.cursor/context/*.md` knowledge area files:
+   - `architecture.md` — system structure, dependency graph
+   - `patterns.md` — coding conventions, existing patterns
+   - `component-inventory.md` — DS catalog, what exists
+   - `tech-debt.md` — known issues in the affected area
+   - `decisions.md` — past ADRs that apply
+   - `metrics.md` — current quality numbers
+   - `product.md` — product context
+
+2. Explore the codebase areas relevant to the task.
+
+3. Run a standup — each role reports its perspective on the task:
+   - Architect: architecture impact, components affected
+   - Staff Frontend: reusable patterns, new patterns needed
+   - Design Engineer: DS components available, gaps
+   - DRY Auditor: duplication risks, DS adoption status
+   - Motion Designer: animation patterns to apply
+   - Senior Engineer: implementation complexity, tech debt
+   - QA: test coverage status, risk areas
+   - Auditor: current quality metrics
+   - DevOps: CI/CD considerations
+
+4. Synthesize into a Task Brief.
+
+### Output — Task Brief
+
+```markdown
+TASK BRIEF — [Task Name]
+Date: [date]
+
+CONTEXT:
+[Summary of what Brain knows about the affected area]
+
+KEY DECISIONS:
+[List of decisions that need to be made during execution]
+
+REUSE OPPORTUNITIES:
+[Components, hooks, patterns that should be reused]
+
+RISK AREAS:
+[Things that could go wrong or need extra attention]
+
+KNOWLEDGE GAPS:
+[What Brain couldn't determine and needs to discover during execution]
+```
+
+Every role reads this brief before starting their phase.
 
 ## Phase 1 — Architect
 
@@ -336,3 +392,51 @@ CI/CD Status:
 
 Ready to merge.
 ```
+
+## Phase 9 — Brain Retrospective
+
+**Goal**: Capture everything learned during execution and update knowledge areas.
+
+### Actions
+
+1. Review all changes made during the task (files created, modified, deleted).
+
+2. Update `.cursor/context/` knowledge area files:
+
+   | File                     | Update if...                                        |
+   | ------------------------ | --------------------------------------------------- |
+   | `architecture.md`        | New apps, packages, features, or dependency changes |
+   | `patterns.md`            | New coding pattern, convention, or rule created     |
+   | `component-inventory.md` | New DS components, variants, or deprecations        |
+   | `tech-debt.md`           | New debt discovered or existing debt resolved       |
+   | `decisions.md`           | Architecture or library decision made               |
+   | `metrics.md`             | Bundle size, test count, or coverage changed        |
+   | `product.md`             | Product understanding deepened or scope clarified   |
+
+3. Evaluate role effectiveness:
+   - Did any role lack context it needed?
+   - Should any role's responsibilities be adjusted?
+   - Should the standup template be updated?
+
+4. Determine if another loop is needed:
+   - Are there remaining knowledge gaps?
+   - Did the retrospective reveal issues that need another pass?
+
+### Output — Retrospective Report
+
+```
+RETROSPECTIVE — [Task Name]
+
+KNOWLEDGE UPDATED:
+  - [list of context files updated and what changed]
+
+NEW FINDINGS:
+  - [patterns, debt, decisions discovered during execution]
+
+ROLE OBSERVATIONS:
+  - [any role adjustments recommended]
+
+LOOP STATUS: [complete | another pass needed]
+```
+
+For the full Brain loop details, read `.cursor/skills/brain/SKILL.md`.

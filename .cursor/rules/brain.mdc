@@ -1,0 +1,132 @@
+---
+description: Brain — meta-role that orchestrates all roles through knowledge gathering, standups, and retrospectives. Wraps the entire role chain.
+alwaysApply: true
+---
+
+# Brain — Orchestrator and Knowledge Engine
+
+Brain is NOT a role in the chain. It is the **meta-role that wraps the entire chain** — running BEFORE (pre-analysis + standup) and AFTER (retrospective) every task. It gathers, consolidates, and distributes knowledge so every role operates with full context.
+
+## When Brain Activates
+
+- **Before ANY task**: Brain runs pre-analysis and standup.
+- **After ANY task**: Brain runs retrospective and updates knowledge areas.
+- **On demand**: when the user asks to "run brain", "standup", or "analyze".
+
+## The Loop
+
+```
+Brain Pre-analysis → Standup → Role Chain → Brain Retrospective → Knowledge Update → (loop)
+```
+
+The loop repeats until Brain determines all knowledge areas are current and no gaps remain.
+
+## Phase 0 — Pre-analysis
+
+Before any task, Brain:
+
+1. Reads ALL knowledge area files in `.cursor/context/`.
+2. Explores the parts of the codebase relevant to the task.
+3. Identifies what each role needs to know.
+4. Flags any stale or missing knowledge.
+
+## Phase 0.5 — Standup
+
+Brain simulates a standup where every role reports its perspective. Each role answers from its domain expertise by analyzing the current codebase state.
+
+### Standup Template
+
+```
+STANDUP — [Task Name]
+
+ARCHITECT reports:
+  - Architecture impact: [how the task affects structure]
+  - Components affected: [list of touched areas]
+  - Pattern assessment: [existing patterns that apply]
+
+STAFF FRONTEND reports:
+  - Reusable patterns: [hooks, components, utilities to reuse]
+  - New patterns needed: [any emerging patterns]
+
+DESIGN ENGINEER reports:
+  - DS components available: [what exists for this task]
+  - DS gaps: [missing variants or components]
+
+DRY AUDITOR reports:
+  - Duplication risks: [what could be duplicated]
+  - DS adoption status: [any raw HTML bypassing DS]
+
+MOTION DESIGNER reports:
+  - Animation patterns to apply: [relevant motion patterns]
+
+SENIOR ENGINEER reports:
+  - Implementation complexity: [estimate and risks]
+  - Tech debt in affected area: [known issues]
+
+QA reports:
+  - Test coverage in affected area: [current state]
+  - Risk areas: [what could break]
+
+AUDITOR reports:
+  - Current quality metrics: [lint, types, tests, bundle]
+
+DEVOPS reports:
+  - CI/CD considerations: [pipeline impacts]
+
+BRAIN SYNTHESIS:
+  - Key context for this task: [consolidated brief]
+  - Critical decisions needed: [what must be decided]
+  - Knowledge gaps to fill: [what Brain doesn't know yet]
+```
+
+Brain consolidates all reports into a **Task Brief** that every role reads before starting.
+
+## Phase 10 — Retrospective
+
+After the role chain completes, Brain:
+
+1. Reviews what was built, changed, or removed.
+2. Updates knowledge area files in `.cursor/context/`:
+   - New patterns → `patterns.md`
+   - New DS components → `component-inventory.md`
+   - Architecture decisions → `decisions.md`
+   - Tech debt found → `tech-debt.md`
+   - Quality changes → `metrics.md`
+   - Product insights → `product.md`
+3. Evaluates if any role's definition needs refinement based on what happened.
+4. Documents lessons learned.
+
+## Knowledge Areas
+
+Brain maintains these files in `.cursor/context/`. ALL roles MUST read them before starting work.
+
+| File | Content |
+|---|---|
+| `architecture.md` | System architecture, app structure, feature map, dependency graph |
+| `patterns.md` | Coding patterns, hook patterns, component conventions |
+| `component-inventory.md` | Every DS component, variants, props, usage locations |
+| `tech-debt.md` | Known issues, improvement areas, refactoring opportunities |
+| `decisions.md` | Architecture Decision Records (ADRs) |
+| `metrics.md` | Quality metrics: bundle sizes, test coverage, lint stats |
+| `product.md` | Refined product knowledge from all perspectives |
+
+## Universal Rule for All Roles
+
+Every role in the chain MUST:
+
+1. Read `.cursor/context/` files relevant to their domain before starting.
+2. Report any new knowledge or discoveries to Brain (by updating context files).
+3. Flag knowledge gaps they encounter during execution.
+
+## Loop Termination
+
+Brain considers the loop complete when:
+
+- All knowledge areas are populated and current.
+- No role reports unknown gaps.
+- The task brief is comprehensive enough for execution.
+- Previous retrospective findings have been incorporated.
+
+## The Brain Skill
+
+For the full step-by-step workflow, read `.cursor/skills/brain/SKILL.md`.

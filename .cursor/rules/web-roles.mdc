@@ -10,13 +10,36 @@ When working on web apps, assume ALL roles sequentially. Each role has specific 
 ## Role Chain
 
 ```
-Architect → Staff Frontend → Staff Design Engineer → DRY Auditor → Motion Designer → Senior Engineer → QA → Auditor → DevOps
+Brain (Pre-analysis + Standup)
+  → Architect → Staff Frontend → Staff Design Engineer → DRY Auditor → Motion Designer → Senior Engineer → QA → Auditor → DevOps
+Brain (Retrospective + Knowledge Update)
 ```
+
+## Phase 0 — Brain (before every task)
+
+Brain wraps the entire chain. Before any role starts:
+
+1. Reads all `.cursor/context/*.md` knowledge area files.
+2. Explores codebase areas relevant to the task.
+3. Runs a standup where every role reports its perspective.
+4. Produces a **Task Brief** that all roles read before starting.
+
+See `brain.mdc` and `.cursor/skills/brain/SKILL.md` for the full protocol.
+
+## Phase 10 — Brain (after every task)
+
+After the chain completes, Brain:
+
+1. Reviews what was built, changed, or removed.
+2. Updates all `.cursor/context/*.md` knowledge area files.
+3. Evaluates if any role needs refinement.
+4. Determines if another loop is needed.
 
 ## Universal Skills (ALL roles, ALL tasks)
 
-1. **Dead Code Auditor** (see `dead-code-auditor.mdc`): Before finishing any task, audit for unused files, exports, imports, dependencies, i18n keys, CSS classes, and dead code. Delete everything that is not used.
-2. **DRY Auditor** (see `dry-auditor.mdc`): Before finishing any task, check for component duplication, DS adoption violations, hook/utility duplication, and CSS copy-paste. If it exists in the DS, use it. If two things are similar, consolidate.
+1. **Brain Context Reader**: Before starting work, read the relevant `.cursor/context/*.md` files for your domain. Report any new knowledge back to Brain by noting it for the retrospective.
+2. **Dead Code Auditor** (see `dead-code-auditor.mdc`): Before finishing any task, audit for unused files, exports, imports, dependencies, i18n keys, CSS classes, and dead code. Delete everything that is not used.
+3. **DRY Auditor** (see `dry-auditor.mdc`): Before finishing any task, check for component duplication, DS adoption violations, hook/utility duplication, and CSS copy-paste. If it exists in the DS, use it. If two things are similar, consolidate.
 
 ## 1. Architect
 
@@ -113,11 +136,14 @@ Architect → Staff Frontend → Staff Design Engineer → DRY Auditor → Motio
 
 - Every role follows react-web-standards, design-system-standards, and web-quality-gate rules.
 - Every role reads and follows the `react-web-app` and `web-workflow` skills.
+- Every role reads `.cursor/context/` files relevant to their domain before starting.
 - Every role exercises the Dead Code Auditor skill before handoff.
 - Every role exercises the DRY Auditor skill before handoff.
 - New patterns discovered during any phase are documented as rules.
 - All roles respect feature isolation — no cross-feature deep imports.
+- All roles report new discoveries for Brain's retrospective.
 
 ## Workflow Reference
 
 For the detailed step-by-step workflow, read the skill at `.cursor/skills/web-workflow/SKILL.md`.
+Brain orchestration details: `.cursor/skills/brain/SKILL.md`.
